@@ -58,6 +58,5 @@ namespace WebBanHangOnline.Areas.Admin.Controllers
             }
             return View(model);
         }
-        //oke
     }
 }
