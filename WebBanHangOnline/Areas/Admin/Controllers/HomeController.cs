@@ -12,8 +12,7 @@ namespace WebBanHangOnline.Areas.Admin.Controllers
         public ActionResult Index()
         {
             return View();
+
         }
-        //test449
-        
     }
 }

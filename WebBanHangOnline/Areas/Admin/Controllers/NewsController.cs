@@ -48,16 +48,43 @@ namespace WebBanHangOnline.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                model.CreatedDate = DateTime.Now;
                 model.ModifiedDate = DateTime.Now;
                 model.CategoryId = 3;
                 model.Alias = WebBanHangOnline.Models.Common.Filter.FilterChar(model.Title);
-                db.News.Add(model);
+                db.News.Attach(model);
+                db.Entry(model).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(model);
         }
-        //test
+        [HttpPost]
+        public ActionResult Delete(int id)
+        {
+            var item = db.News.Find(id);
+            if(item != null)
+            {
+                db.News.Remove(item);
+                db.SaveChanges();
+                return Json(new { success = true });
+            }
+            return Json(new {success = false});
+        }
+        [HttpPost]
+        public ActionResult IsActice(int id)
+        {
+            var item = db.News.Find(id);
+            if (item != null)
+            {
+                item.IsActice = !item.IsActice;
+                db.Entry(item).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+                return Json(new { success = true, isActice = item.IsActice});
+            }
+            return Json(new { success = false });
+        }
+
+
+
     }
 }
