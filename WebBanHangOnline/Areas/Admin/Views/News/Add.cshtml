@@ -66,7 +66,7 @@
                         <label for="exampleInputFile">Ảnh đại diện</label>
                         <div class="input-group">
                             <div class="custom-file">
-                                @Html.TextBoxFor(x => x.Image, new {@id="txtImage", @class ="form-control"})
+                                @Html.TextBoxFor(x => x.Image, new { @id = "txtImage", @class = "form-control" })
                             </div>
                             <div class="input-group-append">
                                 <input type="button" value="Tải ảnh" onclick="BrowserServer('txtImage')" />
@@ -79,7 +79,11 @@
                     </div>
                     <div class="form-group">
                         <label for="Detail">Chi tiết</label>
-                        @Html.TextBoxFor(x => x.Detail, new { @class = "form-control", @id ="txtDetail" })
+                        @Html.TextBoxFor(x => x.Detail, new { @class = "form-control", @id = "txtDetail" })
+                    </div>
+                    <div class="form-group">
+                        <label for="IsActice">Hiển thị</label>
+                        @Html.CheckBoxFor(x => x.IsActice, new {@checked= "checked"})
                     </div>
                     <div class="form-group">
                         <label for="SeoTitle">Seo Title</label>
@@ -96,7 +100,7 @@
 
                     <div class="form-group">
                         <a href="/admin/category" class="btn btn-danger">Quay lại</a>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary">Lưu</button>
                     </div>
                 </div>
                 }
