@@ -1,6 +1,6 @@
-﻿@model WebBanHangOnline.Models.EF.News
+﻿@model WebBanHangOnline.Models.EF.Posts
 @{
-    ViewBag.Title = "Cập nhật tin tức";
+    ViewBag.Title = "Thêm mới bài viết";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 @section naviheader{
@@ -16,7 +16,7 @@
             <a href="/admin/category" class="nav-link">Tin tức</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="#" class="nav-link">Cập nhật</a>
+            <a href="#" class="nav-link">Thêm mới</a>
         </li>
     </ul>
 }
@@ -30,8 +30,8 @@
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Danh mục</a></li>
-                    <li class="breadcrumb-item active">Cập nhật</li>
+                    <li class="breadcrumb-item"><a href="#">Bài viết</a></li>
+                    <li class="breadcrumb-item active">Thêm mới</li>
                 </ol>
             </div>
         </div>
@@ -44,22 +44,17 @@
     <!-- Default box -->
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Thông tin cập nhật tin tức</h3>
+            <h3 class="card-title">@ViewBag.Title</h3>
 
         </div>
-        
+
         <div class="card-body">
-            @if (Model != null)
-            {
-                <div class="bs-stepper-content">
-                    <!-- your steps content here -->
-                    @using (Html.BeginForm("Edit", "News", FormMethod.Post, new { }))
-                    {
-                        @Html.AntiForgeryToken()
-                        @Html.ValidationSummary(true)
-                        @Html.HiddenFor(x => x.Id)
-                        @Html.HiddenFor(x => x.CategoryId)
-                        @Html.HiddenFor(x => x.CreatedDate)
+            <div class="bs-stepper-content">
+                <!-- your steps content here -->
+                @using (Html.BeginForm("Add", "Posts", FormMethod.Post, new { }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
                     <div id="logins-part" class="content active dstepper-block" role="tabpanel" aria-labelledby="logins-part-trigger">
                         <div class="form-group">
                             <label for="Title"> Tiêu đề</label>
@@ -88,7 +83,7 @@
                         </div>
                         <div class="form-group">
                             <label for="IsActice">Hiển thị</label>
-                            @Html.CheckBoxFor(x => x.IsActice)
+                            @Html.CheckBoxFor(x => x.IsActice, new { @checked = "checked" })
                         </div>
                         <div class="form-group">
                             <label for="SeoTitle">Seo Title</label>
@@ -104,15 +99,13 @@
                         </div>
 
                         <div class="form-group">
-                            <a href="/admin/news" class="btn btn-danger">Quay lại</a>
+                            <a href="/admin/category" class="btn btn-danger">Quay lại</a>
                             <button type="submit" class="btn btn-primary">Lưu</button>
                         </div>
                     </div>
-                    }
+                }
 
-                </div>
-            }
-
+            </div>
         </div>
         <!-- /.card-body -->
         <div class="card-footer">
