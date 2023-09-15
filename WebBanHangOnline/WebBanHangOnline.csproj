@@ -183,6 +183,9 @@
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\NewsController.cs" />
     <Compile Include="Areas\Admin\Controllers\PostsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ProductCategoryController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ProductImageController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ProductsController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -208,6 +211,18 @@
     <Compile Include="Migrations\202309090953138_ChangeModels.cs" />
     <Compile Include="Migrations\202309090953138_ChangeModels.designer.cs">
       <DependentUpon>202309090953138_ChangeModels.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202309120845197_UpdateProductCategory.cs" />
+    <Compile Include="Migrations\202309120845197_UpdateProductCategory.designer.cs">
+      <DependentUpon>202309120845197_UpdateProductCategory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202309140955380_UpdateProductImage.cs" />
+    <Compile Include="Migrations\202309140955380_UpdateProductImage.designer.cs">
+      <DependentUpon>202309140955380_UpdateProductImage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202309141453587_UpdatePriceSale.cs" />
+    <Compile Include="Migrations\202309141453587_UpdatePriceSale.designer.cs">
+      <DependentUpon>202309141453587_UpdatePriceSale.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -1153,6 +1168,7 @@
     <Content Include="Content\clients\dist\css\alt\adminlte.pages.min.css" />
     <Content Include="Content\clients\dist\css\alt\adminlte.plugins.css" />
     <Content Include="Content\clients\dist\css\alt\adminlte.plugins.min.css" />
+    <Content Include="Content\clients\dist\img\admin.jpg" />
     <Content Include="Content\clients\dist\img\AdminLTELogo.png" />
     <Content Include="Content\clients\dist\img\avatar.png" />
     <Content Include="Content\clients\dist\img\avatar2.png" />
@@ -3035,6 +3051,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\autoNumeric.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -3146,6 +3163,13 @@
     <Content Include="Areas\Admin\Views\Posts\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Posts\Add.cshtml" />
     <Content Include="Areas\Admin\Views\Posts\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Products\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Products\Add.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductCategory\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductCategory\Add.cshtml" />
+    <Content Include="Areas\Admin\Views\Products\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductImage\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_LayoutEmpty.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -3239,6 +3263,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202309090953138_ChangeModels.resx">
       <DependentUpon>202309090953138_ChangeModels.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202309120845197_UpdateProductCategory.resx">
+      <DependentUpon>202309120845197_UpdateProductCategory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202309140955380_UpdateProductImage.resx">
+      <DependentUpon>202309140955380_UpdateProductImage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202309141453587_UpdatePriceSale.resx">
+      <DependentUpon>202309141453587_UpdatePriceSale.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
