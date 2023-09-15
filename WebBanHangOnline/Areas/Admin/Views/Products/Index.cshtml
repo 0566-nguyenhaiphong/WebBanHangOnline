@@ -1,7 +1,7 @@
-﻿@model PagedList.IPagedList<WebBanHangOnline.Models.EF.News>
+﻿@model PagedList.IPagedList<WebBanHangOnline.Models.EF.Product>
 @using PagedList.Mvc;
 @{
-    ViewBag.Title = "Danh sách tin tức";
+    ViewBag.Title = "Danh sách sản phẩm";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 @section naviheader{
@@ -14,7 +14,7 @@
             <a href="/admin/home" class="nav-link">Trang chủ</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="/admin/news" class="nav-link">@ViewBag.Title</a>
+            <a href="/admin/products" class="nav-link">@ViewBag.Title</a>
         </li>
     </ul>
 }
@@ -23,7 +23,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Danh sách tin tức</h1>
+                <h1>@ViewBag.Title</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -44,25 +44,25 @@
             <h3 class="card-title">@ViewBag.Title</h3>
 
             <div class="card-tools">
-                <a href="/admin/news/add" class="btn btn-primary">Thêm mới </a>
+                <a href="/admin/products/add" class="btn btn-primary">Thêm mới </a>
                 <a href="#" class="btn btn-danger" id="btnDeleteAll">Xóa</a>
             </div>
         </div>
         <div class="card-body">
             <div class="row">
                 <div class="col-5">
-                    @using (Html.BeginForm("index", "News", FormMethod.Get, new {}))
+                    @using (Html.BeginForm("index", "Products", FormMethod.Get, new { }))
                     {
 
                         <div class="input-group input-group-sm">
-                            @Html.TextBox("SearchText", null ,new { @class = "form-control"})
+                            @Html.TextBox("SearchText", null, new { @class = "form-control" })
                             @*<input type="text" name="searchText" class="form-control">*@
                             <span class="input-group-append">
                                 <button type="submit" class="btn btn-info btn-flat">Tìm kiếm</button>
                             </span>
                         </div>
                     }
-                    
+
                 </div>
             </div>
             <table class="table table-hover ">
@@ -71,7 +71,10 @@
                         <th><input type="checkbox" id="SelectAll" /></th>
                         <th>STT</th>
                         <th>Hình ảnh</th>
-                        <th>Tiêu đề</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Danh mục</th>
+                        <th>Số lượng</th>
+                        <th>Giá</th>
                         <th>Ngày tạo</th>
                         <th>Hiển thị</th>
                         <th style="width: 150px"></th>
@@ -88,9 +91,11 @@
                             <tr id="trow_@item.Id">
                                 <td><input type="checkbox" class="cbkItem" value="@item.Id" /></td>
                                 <td>@i</td>
-
-                                <td><img src="@item.Image" width="50px" /></td>
+                                <td><img class="imgproduct" data-id="@item.Id" src="@item.ProductImage.FirstOrDefault(x => x.IsDefault).Image" width="50" /></td>
                                 <td>@item.Title</td>
+                                <td>@item.ProductCategory.Title</td>
+                                <td>@item.Quantity</td>
+                                <td>@item.Price</td>
                                 <td>@item.CreatedDate.ToString("dd/MM/yyyy")</td>
                                 <td class="text-center">
                                     <a href="#" data-id=@item.Id class="btnActice">
@@ -98,7 +103,7 @@
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="/admin/news/edit/@item.Id" class="btn btn-primary">Sửa</a>
+                                    <a href="/admin/products/edit/@item.Id" class="btn btn-primary">Sửa</a>
                                     <a href="#" data-id="@item.Id" class="btn btn-danger btnDelete">Xóa</a>
                                 </td>
                             </tr>
@@ -113,7 +118,7 @@
                         <tr>
                             <td colspan="4">Không có bản ghi nào!!!</td>
                         </tr>
-                        }
+                    }
                 </tbody>
             </table>
 
@@ -123,7 +128,7 @@
                     @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
                 </div>
             </div>
-         
+
         </div>
         <!-- /.card-body -->
         <div class="card-footer">
@@ -135,12 +140,33 @@
 
 </section>
 <!-- /.content -->
-
+<div id="dialog">
+    <iframe id="myIframe" style="border: 0; width: 100%; height: 100%;"></iframe>
+</div>
 @section scripts{
     <script>
         $(document).ready(function () {
+            //hiển thị form upload ảnh
+            $('#dialog').dialog({
+                autoOpen: false,
+                show: "fade",
+                hide: "fade",
+                modal: true,
+                height: '600',
+                width: '700',
+                resizable: true,
+                title: 'Quản lý sản phẩm',
+                close: function () {
+                    window.location.reload();
+                }
+            })
+            $('body').click('click','.imgproduct', function () {
+                var proid = $(this).attr('data-id')
+                $('#dialog #myIframe').attr('src', '/admin/ProductImages/Index?Id-' + proid)
+                $('#dialog').dialog('open')
+                return false
+            })
             $('body').on('click', '#btnDeleteAll', function (e) {
-                debugger
                 e.preventDefault()
                 var str = ""
                 var checkbox = $(this).parents('.card').find('tr td input:checkbox')
@@ -166,7 +192,7 @@
                     var conf = confirm("Ban co muon xoa cac ban ghi nay khong")
                     if (conf) {
                         $.ajax({
-                            url: '/admin/news/DeleteAll',
+                            url: '/admin/products/DeleteAll',
                             type: 'POST',
                             data: { ids: str },
                             success: function (rs) {
@@ -196,11 +222,10 @@
                 var conf = confirm('Bạn có muốn xóa không?')
                 if (conf) {
                     $.ajax({
-                        url: '/admin/news/delete',
+                        url: '/admin/products/delete',
                         type: 'POST',
                         data: { id: id },
                         success: function (rs) {
-
                             if (rs.success)
                                 $('#trow_' + id).remove()
                         }
@@ -213,7 +238,7 @@
                 var id = btn.data("id")
 
                 $.ajax({
-                    url: '/admin/news/IsActice',
+                    url: '/admin/Products/IsActice',
                     type: 'POST',
                     data: { id: id },
                     success: function (rs) {
@@ -235,3 +260,4 @@
         })
     </script>
 }
+@*xong*@ 

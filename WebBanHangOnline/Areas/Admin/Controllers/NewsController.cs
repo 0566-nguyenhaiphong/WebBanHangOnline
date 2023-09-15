@@ -15,7 +15,7 @@ namespace WebBanHangOnline.Areas.Admin.Controllers
         // GET: Admin/News
         public ActionResult Index(string SearchText, int? page)
         {
-            var pageSize = 2;
+            var pageSize = 10;
             if (page == null)
             {
                 page = 1;

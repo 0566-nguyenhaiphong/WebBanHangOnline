@@ -11,6 +11,11 @@ namespace WebBanHangOnline.Models.EF
     [Table("Product")]
     public class Product : CommonAbstract
     {
+        public Product()
+        {
+            this.ProductImage = new HashSet<ProductImage>();
+            this.OrderDetail = new HashSet<OrderDetail>();  
+        }
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
@@ -28,7 +33,7 @@ namespace WebBanHangOnline.Models.EF
         [StringLength(250)]
         public string Image { get; set; }
         public decimal Price { get; set; }  
-        public decimal PriceSale { get; set; }
+        public decimal? PriceSale { get; set; }
         public bool isHome { get; set; }
         public bool isSale { get; set; }    
         public bool isFeature { get; set; }
@@ -42,8 +47,9 @@ namespace WebBanHangOnline.Models.EF
         public string SeoKeywords { get; set; }
         public bool IsActice { get; set; }
 
-
-
         public virtual ProductCategory ProductCategory { get; set; }
+        public virtual ICollection<ProductImage> ProductImage { get; set; }
+
+        public virtual ICollection<OrderDetail> OrderDetail { get; set; }
     }
 }
