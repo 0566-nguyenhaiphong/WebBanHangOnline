@@ -18,6 +18,7 @@
         </li>
     </ul>
 }
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <div class="container-fluid">
@@ -144,6 +145,7 @@
     <iframe id="myIframe" style="border: 0; width: 100%; height: 100%;"></iframe>
 </div>
 @section scripts{
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script>
         $(document).ready(function () {
             //hiển thị form upload ảnh
@@ -155,14 +157,14 @@
                 height: '600',
                 width: '700',
                 resizable: true,
-                title: 'Quản lý sản phẩm',
+                title: 'Quản lý ảnh sản phẩm',
                 close: function () {
                     window.location.reload();
                 }
             })
-            $('body').click('click','.imgproduct', function () {
+            $('body').on('click', '.imgproduct', function () {
                 var proid = $(this).attr('data-id')
-                $('#dialog #myIframe').attr('src', '/admin/ProductImages/Index?Id-' + proid)
+                $('#dialog #myIframe').attr('src', '/admin/ProductImage/Index?id=' + proid)
                 $('#dialog').dialog('open')
                 return false
             })
