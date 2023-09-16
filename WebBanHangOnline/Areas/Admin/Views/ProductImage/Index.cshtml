@@ -3,57 +3,54 @@
     ViewBag.Title = "Ảnh sản phẩm";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutEmpty.cshtml";
 }
-<style>
-    glImage{
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        display: flex;
-    }
-    .glImage li{
-        display: inline-block;
-        position: relative;
-
-    }
-    .box-btn{
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        text-align: center;
-    }
-    
-</style>
 <section class="content">
-
     <!-- Default box -->
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">Ảnh sản phẩm</h3>
-
-            <div class="card-tools">
-                <input type="button" value="Tải ảnh" class="btn btn-primary" onclick="BrowserServer('txtImage')" />
-                <a href="#" class="btn btn-danger btnDeleteAll">Xóa hết </a>
-            </div>
         </div>
         <div class="card-body">
-            <ul class="glImage">
-                @if(Model != null)
-                {
-                    foreach (var item in Model)
-                    {
-                        <li id="trow_@item.Id">
-                            <img src="@item.Image" width="150" />
-                            <div class="box-btn">
-                                <a href="#" data-id="@item.Id" class="btn btn-danger btnDelete"><i class="fa fa-trash"></i></a>
-                                <a href="#" data-id="@item.Id" class="btn btn-success btnDefault"><i class="fa fa-check"></i></a>
-                            </div>
-                           
-                        </li>
-                    }
-                }
-            </ul>
+            <!-- /.tab-pane -->
+            <div class="tab-pane" id="timeline">
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        <input type="button" value="Tải ảnh" class="btn btn-primary" onclick="BrowserServer()" />
+                        <input type="button" value="Xóa tất cả" class="btn btn-danger" data-product-id="@(ViewBag.productId)" onclick="DeleteProductImages(this)" />
+                    </div>
+                    <div class="col-md-12">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">STT</th>
+                                    <th class="text-center">Ảnh</th>
+                                    <th class="text-center">Ảnh đại diện</th>
+                                    <th class="text-center">Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null)
+                                {
+                                    var i = 1;
+                                    foreach (var item in Model)
+                                    {
+                                       
+                                        <tr id="trow_@item.Id">
+                                            <td class="text-center">@i</td>
+                                            <td class="text-center"><img src="@item.Image" width="80" /></td>
 
+                                            <td class="text-center"><input type="radio" name="rDefault" @(item.IsDefault ? "checked='checked'" : "") onclick="SetDefaultImage('@item.Id')" /></td>
+                                            <td class="text-center"><a href="#" data-id="@item.Id" class="btn btn-danger btnDelete">Xoá</a></td>
+                                        </tr>
+                                        i++;
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /.tab-pane -->
         </div>
         <!-- /.card-body -->
         <div class="card-footer">
@@ -86,6 +83,42 @@
             }
         })
     }
+    function SetDefaultImage(id) {
+        $.ajax({
+            url: '/admin/ProductImage/setdefault',
+            type: 'POST',
+            data: { id: id },
+            success: function (rs) {
+                if (rs.success) {
+                    // Thực hiện tác vụ mà bạn muốn sau khi cập nhật thành công
+                    window.location.reload()
+                }
+            }
+        })
+    }
+    function DeleteProductImages(button) {
+        var productId = $(button).data("product-id");
+
+        var conf = confirm("Bạn có chắc chắn muốn xóa tất cả ảnh của sản phẩm này?");
+        if (conf) {
+            $.ajax({
+                url: '/admin/ProductImage/deleteall',
+                type: 'POST',
+                data: { productId: productId },
+                success: function (rs) {
+                    if (rs.success) {
+                        // Thực hiện tác vụ mà bạn muốn sau khi xóa thành công
+                        alert(rs.message);
+                        window.location.reload();
+                    }
+                    else {
+                        // Hiển thị thông báo lỗi nếu không thành công
+                        alert(rs.message);
+                    }
+                }
+            });
+        }
+    }
     $(document).ready(function () {
         $('body').on('click', '.btnDelete', function () {
             var id = $(this).data("id")
@@ -103,24 +136,6 @@
                 })
             }
         })
-
-        //$('body').on('click', '.btnDeleteAll', function (e) {
-        //    debugger
-        //    e.preventDefault()
-        //    var id = $(this).data("id")
-        //    var conf = confirm("ban co muon xoa cac ban ghi nay khong")
-        //    if (conf) {
-        //        $.ajax({
-        //            url: '/admin/productimage/deleteall',
-        //            type: 'POST',
-        //            data: { ids: id },
-        //            success: function (rs) {
-        //                if (rs.success) {
-        //                    location.reload()
-        //                }
-        //            }
-        //        })
-        //    }
-        //}
     })
+    
 </script>
