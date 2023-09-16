@@ -18,6 +18,7 @@ namespace WebBanHangOnline.Areas.Admin.Controllers
             var items = db.ProductImages.Where(x=>x.ProductId == id).ToList();
             return View(items);
         }
+        [HttpPost]
         public ActionResult AddImage(int productid, string url)
         {
             db.ProductImages.Add(new ProductImage
@@ -42,23 +43,50 @@ namespace WebBanHangOnline.Areas.Admin.Controllers
             return Json(new { success = false });
         }
         [HttpPost]
-        public ActionResult DeleteAll(string ids)
+        public ActionResult SetDefault(int id)
         {
-            if (!string.IsNullOrEmpty(ids))
+            // Lấy ảnh đang được chọn
+            var image = db.ProductImages.FirstOrDefault(p => p.Id == id);
+            if (image != null)
             {
-                var items = ids.Split(',');
-                if (items != null && items.Any())
+                // Đặt ảnh đại diện cho sản phẩm
+                image.IsDefault = true;
+                //  Đặt tất cả các ảnh khác thành không phải ảnh đại diện
+                var otherImages = db.ProductImages.Where(p => p.ProductId == image.ProductId && p.Id != image.Id);
+                foreach (var otherImage in otherImages)
                 {
-                    foreach (var item in items)
-                    {
-                        var obj = db.ProductImages.Find(Convert.ToInt32(item));
-                        db.ProductImages.Remove(obj);
-                        db.SaveChanges();
-                    }
-                    return Json(new { success = true });
+                    otherImage.IsDefault = false;
                 }
+                // Lưu thay đổi vào cơ sở dữ liệu
+                db.SaveChanges();
+
+                return Json(new { success = true });
             }
-            return Json(new { success = false });
+            else
+            {
+                return Json(new { success = false });
+            }
         }
+        [HttpPost]
+        public ActionResult DeleteAll(int productId)
+        {
+            // Kiểm tra xem có ảnh đại diện không
+            var defaultImageExist = db.ProductImages.Any(p => p.ProductId == productId);
+            if(defaultImageExist)
+            { 
+                // Xóa các ảnh của sản phẩm được chỉ định
+                db.ProductImages.RemoveRange(db.ProductImages.Where(p => p.ProductId == productId && !p.IsDefault));
+                // Lưu thay đổi vào cơ sở dữ liệu
+                db.SaveChanges();
+
+                return Json(new { success = true, message = "Xóa ảnh sản phẩm thành công!" });
+               
+            }
+            return Json(new { success = false, message = "Không có ảnh để xóa" });
+        }
+
+
+
+
     }
 }
