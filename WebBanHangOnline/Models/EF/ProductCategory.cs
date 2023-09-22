@@ -19,7 +19,7 @@ namespace WebBanHangOnline.Models.EF
         [Required]
         [StringLength(150)]
         public string Title { get; set; }
-        [Required]
+       
         [StringLength(150)]
         public string Alias { get; set; }
         public string Description { get; set; }
