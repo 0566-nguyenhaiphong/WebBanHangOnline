@@ -54,8 +54,9 @@
                 <thead>
                     <tr>
                         <th><input type="checkbox" id="SelectAll" /></th>
-                        <th>STT</th>                        
+                        <th>STT</th>
                         <th>Tiêu đề</th>
+                        <th>Icon</th>
                         <th>Ngày tạo</th>
                         <th>Hiển thị</th>
                         <th style="width: 150px"></th>
@@ -67,18 +68,13 @@
                     {
                         var i = 1;
                         foreach (var item in Model)
-                        {
-                            //var strCheck = item.IsActice ? "<i class='fa fa-check text-success'></i> " : "<i class='fas fa-times text-danger'></i>";
+                        {                      
                             <tr id="trow_@item.Id">
                                 <td><input type="checkbox" class="cbkItem" value="@item.Id" /></td>
-                                <td>@i</td>                             
+                                <td>@i</td>
                                 <td>@item.Title</td>
+                                <td><img src="@item.Icon" width="50px" /></td>
                                 <td>@item.CreatedDate.ToString("dd/MM/yyyy")</td>
-                                @*<td class="text-center">
-                                    <a href="#" data-id=@item.Id class="btnActice">
-                                        @Html.Raw(strCheck)
-                                    </a>
-                                </td>*@
                                 <td>
                                     <a href="/admin/productcategory/edit/@item.Id" class="btn btn-primary">Sửa</a>
                                     <a href="#" data-id="@item.Id" class="btn btn-danger btnDelete">Xóa</a>
@@ -143,7 +139,7 @@
                     var conf = confirm("Ban co muon xoa cac ban ghi nay khong")
                     if (conf) {
                         $.ajax({
-                            url: '/admin/news/DeleteAll',
+                            url: '/admin/productcategory/DeleteAll',
                             type: 'POST',
                             data: { ids: str },
                             success: function (rs) {
@@ -173,7 +169,7 @@
                 var conf = confirm('Bạn có muốn xóa không?')
                 if (conf) {
                     $.ajax({
-                        url: '/admin/news/delete',
+                        url: '/admin/productcategory/delete',
                         type: 'POST',
                         data: { id: id },
                         success: function (rs) {
@@ -184,31 +180,7 @@
                     })
                 }
             })
-            $('body').on('click', '.btnActice', function (e) {
-                e.preventDefault()
-                var btn = $(this)
-                var id = btn.data("id")
-
-                $.ajax({
-                    url: '/admin/news/IsActice',
-                    type: 'POST',
-                    data: { id: id },
-                    success: function (rs) {
-                        debugger
-                        if (rs.success) {
-                            if (rs.isActice)
-                                btn.html("<i class='fa fa-check text-success'></i>")
-                            /* $(this).html("<i class='fa fa-check text-success'></i> ")*/
-                            else {
-                                btn.html("<i class='fas fa-times text-danger'></i>")
-                                /* $(this).html("<i class='fas fa-times text-danger'></i>")*/
-                            }
-                        }
-
-                    }
-                })
-
-            })
+          
         })
     </script>
 }

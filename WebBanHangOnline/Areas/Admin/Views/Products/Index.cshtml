@@ -77,6 +77,8 @@
                         <th>Số lượng</th>
                         <th>Giá</th>
                         <th>Ngày tạo</th>
+                        <th>Home</th>
+                        <th>Sale</th>
                         <th>Hiển thị</th>
                         <th style="width: 150px"></th>
                         <th></th>
@@ -89,6 +91,8 @@
                         foreach (var item in Model)
                         {
                             var strCheck = item.IsActice ? "<i class='fa fa-check text-success'></i> " : "<i class='fas fa-times text-danger'></i>";
+                            var strCheckHome = item.isHome ? "<i class='fa fa-check text-success'></i> " : "<i class='fas fa-times text-danger'></i>";
+                            var strCheckSale = item.isSale ? "<i class='fa fa-check text-success'></i> " : "<i class='fas fa-times text-danger'></i>";
                             <tr id="trow_@item.Id">
                                 <td><input type="checkbox" class="cbkItem" value="@item.Id" /></td>
                                 <td>@i</td>
@@ -96,8 +100,18 @@
                                 <td>@item.Title</td>
                                 <td>@item.ProductCategory.Title</td>
                                 <td>@item.Quantity</td>
-                                <td>@item.Price</td>
+                                <td>@WebBanHangOnline.Models.Common.FormatNumber.FormatNumber1(Convert.ToInt32(item.Price)) VND</td>
                                 <td>@item.CreatedDate.ToString("dd/MM/yyyy")</td>
+                                <td class="text-center">
+                                    <a href="#" data-id=@item.Id class="btnHome">
+                                        @Html.Raw(strCheckHome)
+                                    </a>
+                                </td>
+                                <td class="text-center">
+                                    <a href="#" data-id=@item.Id class="btnSale">
+                                        @Html.Raw(strCheckHome)
+                                    </a>
+                                </td>
                                 <td class="text-center">
                                     <a href="#" data-id=@item.Id class="btnActice">
                                         @Html.Raw(strCheck)
@@ -233,6 +247,56 @@
                         }
                     })
                 }
+            })
+            $('body').on('click', '.btnHome', function (e) {
+                e.preventDefault()
+                var btn = $(this)
+                var id = btn.data("id")
+
+                $.ajax({
+                    url: '/admin/Products/IsHome',
+                    type: 'POST',
+                    data: { id: id },
+                    success: function (rs) {
+                        debugger
+                        if (rs.success) {
+                            if (rs.isHome)
+                                btn.html("<i class='fa fa-check text-success'></i>")
+                            /* $(this).html("<i class='fa fa-check text-success'></i> ")*/
+                            else {
+                                btn.html("<i class='fas fa-times text-danger'></i>")
+                                /* $(this).html("<i class='fas fa-times text-danger'></i>")*/
+                            }
+                        }
+
+                    }
+                })
+
+            })
+            $('body').on('click', '.btnSale', function (e) {
+                e.preventDefault()
+                var btn = $(this)
+                var id = btn.data("id")
+
+                $.ajax({
+                    url: '/admin/Products/IsSale',
+                    type: 'POST',
+                    data: { id: id },
+                    success: function (rs) {
+                        debugger
+                        if (rs.success) {
+                            if (rs.isSale)
+                                btn.html("<i class='fa fa-check text-success'></i>")
+                            /* $(this).html("<i class='fa fa-check text-success'></i> ")*/
+                            else {
+                                btn.html("<i class='fas fa-times text-danger'></i>")
+                                /* $(this).html("<i class='fas fa-times text-danger'></i>")*/
+                            }
+                        }
+
+                    }
+                })
+
             })
             $('body').on('click', '.btnActice', function (e) {
                 e.preventDefault()
