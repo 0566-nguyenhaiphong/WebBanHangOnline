@@ -77,7 +77,6 @@ namespace WebBanHangOnline.Areas.Admin.Controllers
                 return Json(new { success = true });
             }
             return Json(new { success = false });
-        }
-        
+        }     
     }
 }
