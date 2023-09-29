@@ -17,7 +17,11 @@
                     <img src="@strImge" alt="@item.Title">
                 </div>
                 <div class="favorite favorite_left"></div>
-                <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>-$20</span></div>
+                @if (item.PriceSale > 0)
+                {
+                    <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>Sale</span></div>
+
+                }
                 <div class="product_info">
                     <h6 class="product_name"><a href="@item.Alias">@item.Title</a></h6>
                     @if (item.PriceSale > 0)
@@ -26,7 +30,7 @@
                     }
                     else
                     {
-                <div class="product_price">@WebBanHangOnline.Models.Common.FormatNumber.FormatNumber1(Convert.ToInt32(item.Price)) VND</div>
+                        <div class="product_price">@WebBanHangOnline.Models.Common.FormatNumber.FormatNumber1(Convert.ToInt32(item.Price)) VND</div>
                     }
 
                 </div>

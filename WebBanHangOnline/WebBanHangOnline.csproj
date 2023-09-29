@@ -187,6 +187,7 @@
     <Compile Include="Areas\Admin\Controllers\ProductImageController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductsController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
@@ -3328,11 +3329,14 @@
     <Content Include="Views\Menu\_MenuArrivals.cshtml" />
     <Content Include="Views\Product\Partial_ItemsByCateId.cshtml" />
     <Content Include="Views\Product\Partial_ProductSale.cshtml" />
+    <Content Include="Views\Product\Index.cshtml" />
+    <Content Include="Views\Contact\Index.cshtml" />
+    <Content Include="Views\Menu\_MenuLeft.cshtml" />
+    <Content Include="Views\Product\ProductCategory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Content\assets\" />
     <Folder Include="Content\ckfinder\userfiles\" />
   </ItemGroup>
   <ItemGroup>
