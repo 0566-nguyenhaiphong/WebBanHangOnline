@@ -305,7 +305,8 @@ jQuery(document).ready(function ($) {
 						var priceRange = $('#amount').val();
 						var priceMin = parseFloat(priceRange.split('-')[0].replace('đ', ''));
 						var priceMax = parseFloat(priceRange.split('-')[1].replace('đ', ''));
-						var itemPrice = $(this).find('.in_product_price').clone().children().remove().end().text();						
+						var itemPrice = $(this).find('.in_product_price').clone().children().remove().end().text();
+
 						return (itemPrice > priceMin) && (itemPrice < priceMax);
 					},
 					animationOptions: {
@@ -335,7 +336,6 @@ jQuery(document).ready(function ($) {
 					$("#amount").val("đ" + ui.values[0] + " - đ" + ui.values[1]);
 					$('#FromAmount').val(ui.values[0]);
 					$('#ToAmount').val(ui.values[1]);
-					
 				}
 			});
 

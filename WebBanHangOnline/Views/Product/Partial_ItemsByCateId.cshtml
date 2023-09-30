@@ -23,7 +23,7 @@
 
                 }
                 <div class="product_info">
-                    <h6 class="product_name"><a href="@item.Alias">@item.Title</a></h6>
+                    <h6 class="product_name"><a href="/chi-tiet/@item.Alias-p@(item.Id) ">@item.Title</a></h6>
                     @if (item.PriceSale > 0)
                     {
                         <div class="product_price">@WebBanHangOnline.Models.Common.FormatNumber.FormatNumber1(Convert.ToInt32(item.PriceSale)) VND<span>@WebBanHangOnline.Models.Common.FormatNumber.FormatNumber1(Convert.ToInt32(item.Price)) VND</span></div>
@@ -35,7 +35,7 @@
 
                 </div>
             </div>
-            <div class="red_button add_to_cart_button"><a href="#">add to cart</a></div>
+            <div class="red_button add_to_cart_button"><a href="#" class="btnAddToCart" data-id="@item.Id">add to cart</a></div>
         </div>
     }
 }

@@ -25,6 +25,12 @@ namespace WebBanHangOnline
                 namespaces: new[] { "WebBanHangOnline.Controllers" }
             );
             routes.MapRoute(
+               name: "DetailProduct",
+               url: "chi-tiet/{alias}-p{id}",
+               defaults: new { controller = "Product", action = "Detail", alias = UrlParameter.Optional },
+               namespaces: new[] { "WebBanHangOnline.Controllers" }
+           );
+            routes.MapRoute(
                 name: "Product",
                 url: "san-pham",
                 defaults: new { controller = "Product", action = "Index", alias = UrlParameter.Optional },

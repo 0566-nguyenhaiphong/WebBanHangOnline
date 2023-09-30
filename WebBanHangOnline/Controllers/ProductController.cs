@@ -14,7 +14,7 @@ namespace WebBanHangOnline.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();   
         // GET: Product
-        public ActionResult Index(int? id, int? page)
+        public ActionResult Index(int? id, int? page, string alias)
         {
             var pageSize = 8;
             if (page == null)
@@ -31,6 +31,11 @@ namespace WebBanHangOnline.Controllers
             ViewBag.PageSize = pageSize;
             ViewBag.Page = page;
             return View(items);
+        }
+        public ActionResult Detail( string alias, int id)
+        {
+            var item = db.Products.Find(id);
+            return View(item);
         }
         public ActionResult ProductCategory(int? page, int id)
         {

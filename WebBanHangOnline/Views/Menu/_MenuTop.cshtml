@@ -4,6 +4,10 @@
     <ul class="navbar_menu">
         @foreach (var item in Model)
         {
+            if (item.Alias.Equals("trang-chu"))
+            {
+                item.Alias = "";
+            }
             <li><a href="/@item.Alias">@item.Title</a></li>
         }
         
