@@ -153,34 +153,35 @@
                                         }
 
                                         <div class="product-item @item.ProductCategory.Alias">
-                                           
-                                                <div class="product discount product_filter">
-                                                    <div class="product_image">
-                                                        <img src="@strImg" alt="@item.Title">
-                                                    </div>
-                                                    <div class="favorite favorite_left"></div>
+
+                                            <div class="product discount product_filter">
+                                                <div class="product_image">
+                                                    <img src="@strImg" alt="@item.Title">
+                                                </div>
+                                                <div class="favorite favorite_left"></div>
+                                                @if (item.PriceSale > 0)
+                                                {
+                                                    <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>Sale</span></div>
+
+                                                }
+                                                <div class="product_info">
+                                                    <h6 class="product_name"><a href="/chi-tiet/@item.Alias-p@(item.Id) ">@item.Title</a></h6>
                                                     @if (item.PriceSale > 0)
                                                     {
-                                                        <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>Sale</span></div>
+                                                        <div class="product_price">@WebBanHangOnline.Models.Common.FormatNumber.FormatNumber1(Convert.ToInt32(item.PriceSale)) đ<span>@WebBanHangOnline.Models.Common.FormatNumber.FormatNumber1(Convert.ToInt32(item.Price)) đ</span></div>
+                                                        <div style="display:none;" class="in_product_price"> @item.PriceSale</div>
 
                                                     }
-                                                    <div class="product_info">
-                                                        <h6 class="product_name"><a href="@item.Alias">@item.Title</a></h6>
-                                                        @if (item.PriceSale > 0)
-                                                        {
-                                                            <div class="product_price">@WebBanHangOnline.Models.Common.FormatNumber.FormatNumber1(Convert.ToInt32(item.PriceSale)) đ<span>@WebBanHangOnline.Models.Common.FormatNumber.FormatNumber1(Convert.ToInt32(item.Price)) đ</span></div>
-                                                            <div style="display:none" class="in_product_price">@item.PriceSale</div>
+                                                    else
+                                                    {
+                                                        <div class="product_price">@WebBanHangOnline.Models.Common.FormatNumber.FormatNumber1(Convert.ToInt32(item.Price)) đ</div>
+                                                        <div style="display:none;" class="in_product_price"> @item.Price</div>
 
-                                                        }
-                                                        else
-                                                        {
-                                                            <div class="product_price">@WebBanHangOnline.Models.Common.FormatNumber.FormatNumber1(Convert.ToInt32(item.Price)) đ</div>
-                                                            <div style="display:none" class="in_product_price">@item.Price</div>
-
-                                                        }
-                                                    </div>
+                                                    }
                                                 </div>
-                                            
+                                            </div>
+                                            <div class="red_button add_to_cart_button"><a href="#" class="btnAddToCart" data-id="@item.Id">add to cart</a></div>
+
                                         </div>
                                     }
                                 }
