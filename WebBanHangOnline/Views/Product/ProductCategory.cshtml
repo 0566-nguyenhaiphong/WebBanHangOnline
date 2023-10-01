@@ -171,13 +171,13 @@
                                                     @if (item.PriceSale > 0)
                                                     {
                                                         <div class="product_price">@WebBanHangOnline.Models.Common.FormatNumber.FormatNumber1(Convert.ToInt32(item.PriceSale)) đ<span>@WebBanHangOnline.Models.Common.FormatNumber.FormatNumber1(Convert.ToInt32(item.Price)) đ</span></div>
-                                                        <div style="display:none;" class="in_product_price"> @item.PriceSale</div>
+                                                        <div style="display:none;" class="in_product_price"> @(Convert.ToInt32(item.PriceSale))</div>
 
                                                     }
                                                     else
                                                     {
                                                         <div class="product_price">@WebBanHangOnline.Models.Common.FormatNumber.FormatNumber1(Convert.ToInt32(item.Price)) đ</div>
-                                                        <div style="display:none;" class="in_product_price"> @item.Price</div>
+                                                        <div style="display:none;" class="in_product_price"> @(Convert.ToInt32(item.Price))</div>
 
                                                     }
                                                 </div>

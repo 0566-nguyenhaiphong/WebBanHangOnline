@@ -26,11 +26,11 @@
                     <h6 class="product_name"><a href="/chi-tiet/@item.Alias-p@(item.Id) ">@item.Title</a></h6>
                     @if (item.PriceSale > 0)
                     {
-                        <div class="product_price">@WebBanHangOnline.Models.Common.FormatNumber.FormatNumber1(Convert.ToInt32(item.PriceSale)) VND<span>@WebBanHangOnline.Models.Common.FormatNumber.FormatNumber1(Convert.ToInt32(item.Price)) VND</span></div>
+                        <div class="product_price">@WebBanHangOnline.Models.Common.FormatNumber.FormatNumber1(Convert.ToInt32(item.PriceSale)) đ<span>@WebBanHangOnline.Models.Common.FormatNumber.FormatNumber1(Convert.ToInt32(item.Price)) đ</span></div>
                     }
                     else
                     {
-                        <div class="product_price">@WebBanHangOnline.Models.Common.FormatNumber.FormatNumber1(Convert.ToInt32(item.Price)) VND</div>
+                        <div class="product_price">@WebBanHangOnline.Models.Common.FormatNumber.FormatNumber1(Convert.ToInt32(item.Price)) đ</div>
                     }
 
                 </div>
