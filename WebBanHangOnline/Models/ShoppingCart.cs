@@ -21,6 +21,7 @@ namespace WebBanHangOnline.Models
             {
                 checkExist.Quantity += quantity;
                 checkExist.PriceTotal = checkExist.Price * checkExist.Quantity;
+                
             }
             else
             {
@@ -42,7 +43,7 @@ namespace WebBanHangOnline.Models
             var checkExist = Items.SingleOrDefault(x => x.ProductId == id);
             if (checkExist != null)
             {
-                checkExist.Quantity += quantity;
+                checkExist.Quantity = quantity;
                 checkExist.PriceTotal = checkExist.Price * checkExist.Quantity;
             }
         }
@@ -62,7 +63,9 @@ namespace WebBanHangOnline.Models
     public class ShoppingCartItem
     {
         public int ProductId { get; set; }
-        public string PruductName { get; set; }
+        public string ProductName { get; set; }
+        public string Alias { get; set; }
+
         public string CategoryName { get; set; }
 
         public string ProductImg { get; set; }
