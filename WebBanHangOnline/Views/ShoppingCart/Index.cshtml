@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebBanHangOnline.Models.ShoppingCartItem>
+﻿
 @{
     ViewBag.Title = "Giỏ hàng";
 
@@ -23,59 +23,19 @@
 
             <!-- Main Content -->
             <div class="row">
+                <div class="col-md-12" id="load_data">
+                    @Html.Action("Partial_Item_Cart", "ShoppingCart")
+                </div>
                 <div class="col-md-12">
-                    <table class="table">
-                        <tr class="text-center">
-                            <th>STT</th>
-                            <th>Ảnh sản phẩm</th>
-                            <th>Tên sản phẩm </th>
-                            <th>Danh mục</th>
-                            <th>Giá</th>
-                            <th>Tổng tiền</th>
-                            <th>Số lượng</th>
-                            <th>
-
-                            </th>
-
-                        </tr>
-                        @if (Model != null && Model.Any())
-                        {
-                            var i = 0;
-                            var priceTotal = decimal.Zero;
-                            foreach (var item in Model)
-                            {
-                                priceTotal += item.PriceTotal;
-                                <tr class="text-center" id="trow_@item.ProductId">
-                                    <td>@(++i)</td>
-                                    <td><img src="@item.ProductImg" width="60px" height="60px" /></td>
-                                    <td><a href="/chi-tiet/@item.Alias-p@(item.ProductId)">@item.ProductName</a></td>
-                                    <td>@item.CategoryName</td>
-                                    <td>@WebBanHangOnline.Models.Common.FormatNumber.FormatNumber1(Convert.ToInt32(item.Price)) đ</td>
-                                    <td>@WebBanHangOnline.Models.Common.FormatNumber.FormatNumber1(Convert.ToInt32(item.PriceTotal)) đ</td>
-                                    <td>@item.Quantity</td>
-                                    <td><a href="#" data-id="@item.ProductId" class="btn btn-sm btn btn-danger btnDelete">Xóa</a></td>
-                                </tr>
-                            }
-                            <tr style="font-size: 15px">
-                                <th class="text-right" colspan="6">Tổng: </th>
-                                <th class="text-center"  >@WebBanHangOnline.Models.Common.FormatNumber.FormatNumber1(Convert.ToInt32(priceTotal)) đ</th>
-                                <td></td>
-
-                            </tr>
-                        }
-
-                        else
-                        {
-                            <tr>
-                                <th colspan="7">
-                                    Không có sản phẩm nào trong giỏ hàng!
-                                </th>
-                            </tr>
-                        }
-                    </table>
+                    @if (ViewBag.CheckCart != null)
+                    {
+                        <div class="text-right">
+                            <a href="#" class="btn btn-danger btn btn-sm btnDeleteAll">Xóa giỏ hàng</a>
+                            <a href="/thanh-toan" class="btn btn-info btn btn-sm">Thanh toán</a>
+                        </div>
+                    }
 
                 </div>
-
             </div>
         </div>
     </div>
