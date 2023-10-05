@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -14,12 +15,22 @@ namespace WebBanHangOnline.Controllers
         public ActionResult Index()
         {
             ShoppingCart cart = (ShoppingCart)Session["Cart"];
-            if(cart != null)
+            if (cart != null && cart.Items.Any())
             {
-                return View(cart.Items);
+                ViewBag.CheckCart = cart;
             }
             return View();
         }
+        public ActionResult Partial_Item_Cart()
+        {
+            ShoppingCart cart = (ShoppingCart)Session["Cart"];
+            if (cart != null && cart.Items.Any())
+            {
+                return PartialView(cart.Items);
+            }
+            return PartialView();
+        }
+
         public ActionResult ShowCount()
         {
             ShoppingCart cart = (ShoppingCart)Session["Cart"];
@@ -68,6 +79,18 @@ namespace WebBanHangOnline.Controllers
             return Json(code);
         }
         [HttpPost]
+        public ActionResult UpdateCart(int id, int quantity)
+        {
+            ShoppingCart cart = (ShoppingCart)Session["Cart"];
+            if (cart != null)
+            {
+                cart.UpdateQuantity(id, quantity);
+                return Json(new { Success = true });
+            }
+            return Json(new { Success = false });
+        }
+       
+        [HttpPost]
         public ActionResult Delete(int id)
         {
             var code = new { Success = false, msg = "", code = -1, Count = 0 };
@@ -83,6 +106,35 @@ namespace WebBanHangOnline.Controllers
                 }
             }
             return Json(code);
+        }
+        [HttpPost]
+        public ActionResult DeleteAll()
+        {
+            ShoppingCart cart = (ShoppingCart)Session["Cart"];
+            if (cart != null)
+            {
+                cart.ClearCart();
+                return Json(new { Success = true });
+            }
+            return Json(new { Success = false });
+        }
+        public ActionResult CheckOut()
+        {
+            ShoppingCart cart = (ShoppingCart)Session["Cart"];
+            if (cart != null && cart.Items.Any())
+            {
+                ViewBag.CheckCart = cart;
+            }
+            return View();
+        }
+        public ActionResult Partial_Item_ThanhToan()
+        {
+            ShoppingCart cart = (ShoppingCart)Session["Cart"];
+            if (cart != null && cart.Items.Any())
+            {
+                return PartialView(cart.Items);
+            }
+            return PartialView();
         }
     }
 }
