@@ -1,8 +1,13 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "CheckOut";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<style>
+    .error {
+        color: red;
+    }
+</style>
 
 <link rel="stylesheet" type="text/css" href="~/Content/assets/styles/categories_styles.css">
 <link rel="stylesheet" type="text/css" href="~/Content/assets/styles/categories_responsive.css">
@@ -32,35 +37,9 @@
             @if (ViewBag.CheckCart != null)
             {
                 <div class="row">
+                    <div id="show_success"></div>
                     <div class="col-md-9">
-                        <h3>Thông tin khách hàng</h3>
-                        <div class="form-group">
-                            <label>Họ tên khách hàng</label>
-                            <input type="text" name="CustomerName" class="form-control" autocomplete="off" />
-                        </div>
-                        <div class="form-group">
-                            <label>Số điện thoại</label>
-                            <input type="text" name="Phone" class="form-control" autocomplete="off" />
-                        </div>
-                        <div class="form-group">
-                            <label>Địa chỉ</label>
-                            <input type="text" name="Address" class="form-control" autocomplete="off" />
-                        </div>
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input type="text" name="Email" class="form-control" autocomplete="off" />
-                        </div>
-                        <div class="form-group">
-                            <label>Hình thức thanh toán</label>
-                            <select class="form-control" name="Payment">
-                                <option value="1" selected>COD</option>
-                                <option value="2">Chuyển khoản</option>
-
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <button type="button" class="btn btn-success btn btn-block">Đặt hàng</button>
-                        </div>
+                        @Html.Action("Parttial_CheckOut", "ShoppingCart")
                     </div>
                     <div class="col-md-3">
 
@@ -72,7 +51,7 @@
             else
             {
                 <div>
-                    Bạn chưa có sản phẩm nào. Vui lòng quay lại trang <a href="/san-pham">sản phẩm</a> để mua! 
+                    Bạn chưa có sản phẩm nào. Vui lòng quay lại trang <a href="/san-pham">sản phẩm</a> để mua!
                 </div>
             }
         </div>
@@ -81,6 +60,39 @@
 
 @section scripts{
     <script src="~/Content/assets/js/categories_custom.js"></script>
+    <script>
+        
+        function OnFailure(rs) {
+            if (!rs.success) {
+                $('#show_success').html("Bạn mua hàng thất bại! Xin vui lòng thử lại");
+            }
+        }
+        $(document).ready(function () {
+            $('#myFrom').validate({
+                rules: {
+                    'CustomerName': {
+                        required: true
+                    },
+                    'Phone': {
+                        required: true
+                    },
+                    'Address': {
+                        required: true
+                    },
+                    'Email': {
+                        required: true,
+                        email: true
+                    }
+                },
+                messages: {
+                    'CustomerName': 'Bạn khổng để trống trường này',
+                    'Phone': 'Bạn khổng để trống trường này',
+                    'Address': 'Bạn khổng để trống trường này',
+                    'Email': 'Email chưa hợp lệ'
+                }
+            });
+        });
+    </script>
 }
 
 
