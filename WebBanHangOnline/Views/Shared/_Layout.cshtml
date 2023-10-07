@@ -13,13 +13,17 @@
     <link rel="stylesheet" type="text/css" href="~/Content/assets/plugins/OwlCarousel2-2.2.1/animate.css">
     <link rel="stylesheet" type="text/css" href="~/Content/assets/plugins/jquery-ui-1.12.1.custom/jquery-ui.css">
     @*@RenderSection("css", required: false)*@
-
+    <link href="~/Content/assets/styles/toast.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="~/Content/assets/styles/responsive.css">
     @*@Styles.Render("~/Content/css")*@
     @Scripts.Render("~/bundles/modernizr")
+    <script src="~/Content/assets/js/jquery-3.2.1.min.js"></script>
+
+    @Scripts.Render("~/bundles/jqueryval")
 
 </head>
 <body>
+    <div id="toast"></div>
     <div class="super_container">
 
         <!-- Header -->
@@ -228,7 +232,6 @@
     </div>
 
     @*@Scripts.Render("~/bundles/jquery")*@
-    <script src="~/Content/assets/js/jquery-3.2.1.min.js"></script>
     <script src="~/Content/assets/styles/bootstrap4/popper.js"></script>
     <script src="~/Content/assets/styles/bootstrap4/bootstrap.min.js"></script>
     <script src="~/Content/assets/plugins/Isotope/isotope.pkgd.min.js"></script>
@@ -236,6 +239,8 @@
     <script src="~/Content/assets/plugins/easing/easing.js"></script>
     <script src="~/Content/assets/plugins/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
     <script src="~/Content/assets/js/custom.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
     <script src="~/Scripts/jsShopping.js"></script>
     @*@Scripts.Render("~/bundles/bootstrap")*@
     @RenderSection("scripts", required: false)

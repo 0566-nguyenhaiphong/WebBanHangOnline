@@ -232,6 +232,10 @@
     <Compile Include="Migrations\202309201421281_UpdateProductCategory1.designer.cs">
       <DependentUpon>202309201421281_UpdateProductCategory1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202310050327575_UpdatePayment.cs" />
+    <Compile Include="Migrations\202310050327575_UpdatePayment.designer.cs">
+      <DependentUpon>202310050327575_UpdatePayment.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CommonAbstract.cs" />
@@ -252,6 +256,7 @@
     <Compile Include="Models\EF\SystemSetting.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\OrderViewModel.cs" />
     <Compile Include="Models\ShoppingCart.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -321,6 +326,7 @@
     <Content Include="Content\assets\styles\responsive.css" />
     <Content Include="Content\assets\styles\single_responsive.css" />
     <Content Include="Content\assets\styles\single_styles.css" />
+    <Content Include="Content\assets\styles\toast.css" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -3342,6 +3348,8 @@
     <Content Include="Views\ShoppingCart\Partial_Item_Cart.cshtml" />
     <Content Include="Views\ShoppingCart\CheckOut.cshtml" />
     <Content Include="Views\ShoppingCart\Partial_Item_ThanhToan.cshtml" />
+    <Content Include="Views\ShoppingCart\Parttial_CheckOut.cshtml" />
+    <Content Include="Views\ShoppingCart\CheckOutSuccess.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -3402,6 +3410,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202309201421281_UpdateProductCategory1.resx">
       <DependentUpon>202309201421281_UpdateProductCategory1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202310050327575_UpdatePayment.resx">
+      <DependentUpon>202310050327575_UpdatePayment.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
