@@ -9,13 +9,16 @@
 }, new { @Id = "myFrom" }))
 {
     <script>
-            function OnSuccessCO() {
-                location.href = "/ShoppingCart/CheckOutSuccess";
+        function OnSuccessCO() {
+            location.href = "/ShoppingCart/CheckOutSuccess";
+        }
+        function OnFailure(rs) {
+            if (!rs.success) {
+                $('#show_success').html("Bạn mua hàng thất bại! Xin vui lòng thử lại");
             }
-            function OnFailure(rs) {
-                
-            }
+        }
     </script>
+    @Html.AntiForgeryToken()
     <h3>Thông tin khách hàng</h3>
     <div class="form-group ">
         <label>Họ tên khách hàng</label>
@@ -42,8 +45,8 @@
         </select>
     </div>
     <div class="form-group">
-        <button type="submit"  class="btn btn-success btn btn-block">Đặt hàng</button>
+        <button type="submit" class="btn btn-success btn btn-block">Đặt hàng</button>
     </div>
-   
+
 
 }
