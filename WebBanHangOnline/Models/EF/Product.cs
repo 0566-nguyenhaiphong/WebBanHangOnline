@@ -34,18 +34,20 @@ namespace WebBanHangOnline.Models.EF
         public string Image { get; set; }
         public decimal Price { get; set; }  
         public decimal? PriceSale { get; set; }
+        public int Quantity { get; set; }
+        public int ViewCount { get; set; }  
         public bool isHome { get; set; }
         public bool isSale { get; set; }    
         public bool isFeature { get; set; }
         public bool isHot { get; set; }
-        public int Quantity { get; set; }
+        public bool IsActice { get; set; }     
         [StringLength(250)]
         public string SeoTitle { get; set; }
         [StringLength(500)]
         public string SeoDescription { get; set; }
         [StringLength(250)]
         public string SeoKeywords { get; set; }
-        public bool IsActice { get; set; }
+       
 
         public virtual ProductCategory ProductCategory { get; set; }
         public virtual ICollection<ProductImage> ProductImage { get; set; }

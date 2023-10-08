@@ -126,7 +126,7 @@ function LoadCart() {
 function showSuccessToast(rs) {
     toast({
         title: "Thành công!",
-        message: "Mua hàng thành công",
+        message: "Thêm vào giỏ hàng thành công",
         type: "success",
         duration: 3000
     });
