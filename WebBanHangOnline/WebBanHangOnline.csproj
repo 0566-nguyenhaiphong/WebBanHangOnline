@@ -189,6 +189,8 @@
     <Compile Include="Areas\Admin\Controllers\ProductCategoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductImageController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductsController.cs" />
+    <Compile Include="Common\Common.cs" />
+    <Compile Include="Common\SettingHelper.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -242,6 +244,10 @@
     <Compile Include="Migrations\202310080853454_CreateTbThongke.cs" />
     <Compile Include="Migrations\202310080853454_CreateTbThongke.designer.cs">
       <DependentUpon>202310080853454_CreateTbThongke.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202310081026080_updateOrder.cs" />
+    <Compile Include="Migrations\202310081026080_updateOrder.designer.cs">
+      <DependentUpon>202310081026080_updateOrder.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -3139,6 +3145,8 @@
     <Content Include="Content\clients\plugins\uplot\uPlot.iife.min.js" />
     <Content Include="Content\clients\plugins\uplot\uPlot.min.css" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\templates\send1.html" />
+    <Content Include="Content\templates\send2.html" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -3427,6 +3435,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202310080853454_CreateTbThongke.resx">
       <DependentUpon>202310080853454_CreateTbThongke.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202310081026080_updateOrder.resx">
+      <DependentUpon>202310081026080_updateOrder.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
