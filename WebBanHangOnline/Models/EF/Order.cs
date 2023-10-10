@@ -29,7 +29,7 @@ namespace WebBanHangOnline.Models.EF
         public decimal TotalAmount { get; set; }
         public int Quantity { get; set; }
         public int TypePayment { get; set; }
-
+        public bool isConfirm { get; set; }  
 
         public ICollection<OrderDetail> OrderDetails { get; set; }
     }
