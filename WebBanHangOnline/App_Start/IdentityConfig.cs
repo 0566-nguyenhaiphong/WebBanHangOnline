@@ -53,11 +53,11 @@ namespace WebBanHangOnline
             // Configure validation logic for passwords
             manager.PasswordValidator = new PasswordValidator
             {
-                RequiredLength = 6,
-                RequireNonLetterOrDigit = true,
-                RequireDigit = true,
-                RequireLowercase = true,
-                RequireUppercase = true,
+                RequiredLength = 6, 
+                RequireNonLetterOrDigit = true,//kí tự đặc biệt
+                RequireDigit = true, // số
+                RequireLowercase = true, //chữ thường
+                RequireUppercase = true, //chữ hoa
             };
 
             // Configure user lockout defaults
