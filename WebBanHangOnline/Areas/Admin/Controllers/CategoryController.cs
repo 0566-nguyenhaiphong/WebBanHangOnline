@@ -9,6 +9,7 @@ using WebBanHangOnline.Models.EF;
 
 namespace WebBanHangOnline.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class CategoryController : Controller
     {
         ApplicationDbContext db = new ApplicationDbContext();
