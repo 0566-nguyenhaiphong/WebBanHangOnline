@@ -192,6 +192,7 @@
     <Compile Include="Areas\Admin\Controllers\ProductImageController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductsController.cs" />
     <Compile Include="Areas\Admin\Controllers\RoleController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SettingSystemController.cs" />
     <Compile Include="Common\Common.cs" />
     <Compile Include="Common\SettingHelper.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -199,6 +200,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
+    <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="Global.asax.cs">
@@ -260,6 +262,14 @@
     <Compile Include="Migrations\202310120425385_updateUser.designer.cs">
       <DependentUpon>202310120425385_updateUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202310150312177_addSettingViewModel.cs" />
+    <Compile Include="Migrations\202310150312177_addSettingViewModel.designer.cs">
+      <DependentUpon>202310150312177_addSettingViewModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202310180254443_updateSubscribe.cs" />
+    <Compile Include="Migrations\202310180254443_updateSubscribe.designer.cs">
+      <DependentUpon>202310180254443_updateSubscribe.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CommonAbstract.cs" />
@@ -283,6 +293,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\OrderViewModel.cs" />
+    <Compile Include="Models\SettingSystemViewModel.cs" />
     <Compile Include="Models\ShoppingCart.cs" />
     <Compile Include="Models\ThongKeViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -3443,12 +3454,16 @@
     <Content Include="Content\assets\plugins\bootstrap\js\bootstrap.bundle.min.js.map" />
     <Content Include="Content\assets\plugins\bootstrap\js\bootstrap.js.map" />
     <Content Include="Content\assets\plugins\bootstrap\js\bootstrap.min.js.map" />
+    <Content Include="Areas\Admin\Views\SettingSystem\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\SettingSystem\Partial_Setting.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -3506,6 +3521,10 @@
     <Content Include="Views\ShoppingCart\Parttial_CheckOut.cshtml" />
     <Content Include="Views\ShoppingCart\CheckOutSuccess.cshtml" />
     <Content Include="Views\Home\Refresh.cshtml" />
+    <Content Include="Views\News\Partial_News_Home.cshtml" />
+    <Content Include="Views\News\Index.cshtml" />
+    <Content Include="Views\News\Detail.cshtml" />
+    <Content Include="Views\Home\Partial_Subcribe.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -3581,6 +3600,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202310120425385_updateUser.resx">
       <DependentUpon>202310120425385_updateUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202310150312177_addSettingViewModel.resx">
+      <DependentUpon>202310150312177_addSettingViewModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202310180254443_updateSubscribe.resx">
+      <DependentUpon>202310180254443_updateSubscribe.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

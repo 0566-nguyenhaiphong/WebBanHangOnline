@@ -75,11 +75,11 @@
                     </div>
                     <div class="form-group">
                         <label for="Description">Mô tả</label>
-                        @Html.TextBoxFor(x => x.Description, new { @class = "form-control" })
+                        @Html.TextAreaFor(x => x.Description, new { @class = "form-control" })
                     </div>
                     <div class="form-group">
-                        <label for="Detail">Chi tiết</label>
-                        @Html.TextBoxFor(x => x.Detail, new { @class = "form-control", @id = "txtDetail" })
+                        <label for="Detail"> Chi tiết</label>
+                        @Html.TextAreaFor(x => x.Detail, new { @class = "form-control", @id = "txtDetail" })
                     </div>
                     <div class="form-group">
                         <label for="IsActice">Hiển thị</label>
