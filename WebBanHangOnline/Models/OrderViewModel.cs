@@ -16,7 +16,11 @@ namespace WebBanHangOnline.Models
         public string Address { get; set; }
         [Required(ErrorMessage = "Email không được để trống")]
         public string Email { get; set; }
+        public string CustomerId { get; set; }
+
         public int TypePayment { get; set; }
+        public int TypePaymentVN { get; set; }
+
 
     }
 }

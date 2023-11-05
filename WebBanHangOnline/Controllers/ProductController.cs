@@ -32,6 +32,8 @@ namespace WebBanHangOnline.Controllers
             ViewBag.Page = page;
             return View(items);
         }
+        [AllowAnonymous]
+
         public ActionResult Detail( string alias, int id)
         {
             var item = db.Products.Find(id);
@@ -78,5 +80,6 @@ namespace WebBanHangOnline.Controllers
             var items = db.Products.Where(x => x.isSale && x.IsActice).Take(12).ToList();
             return PartialView(items);
         }
+        
     }
 }

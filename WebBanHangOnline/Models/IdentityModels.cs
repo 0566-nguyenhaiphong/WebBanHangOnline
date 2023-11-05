@@ -30,6 +30,8 @@ namespace WebBanHangOnline.Models
         {
 
         }
+        public DbSet<ReviewProduct> Review{ get; set; }
+
         public DbSet<ThongKe> ThongKes{ get; set; }
 
         public DbSet<Category> Categories { get; set; }

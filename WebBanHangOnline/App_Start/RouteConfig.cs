@@ -19,10 +19,22 @@ namespace WebBanHangOnline
                namespaces: new[] { "WebBanHangOnline.Controllers" }
             );
             routes.MapRoute(
+               name: "Product",
+               url: "san-pham",
+               defaults: new { controller = "Product", action = "Index", alias = UrlParameter.Optional },
+               namespaces: new[] { "WebBanHangOnline.Controllers" }
+           );
+            routes.MapRoute(
                name: "CheckOut",
                url: "thanh-toan",
                defaults: new { controller = "ShoppingCart", action = "CheckOut", alias = UrlParameter.Optional },
                namespaces: new[] { "WebBanHangOnline.Controllers" }
+            );
+            routes.MapRoute(
+            name: "vnpay_return",
+            url: "vnpay_return",
+            defaults: new { controller = "ShoppingCart", action = "VnpayReturn", alias = UrlParameter.Optional },
+            namespaces: new[] { "WebBanHangOnline.Controllers" }
             );
             routes.MapRoute(
               name: "ShoppingCart",
@@ -30,6 +42,18 @@ namespace WebBanHangOnline
               defaults: new { controller = "ShoppingCart", action = "Index", alias = UrlParameter.Optional },
               namespaces: new[] { "WebBanHangOnline.Controllers" }
            );
+            routes.MapRoute(
+               name: "OrderList",
+               url: "don-hang",
+               defaults: new { controller = "ShoppingCart", action = "OrderList", alias = UrlParameter.Optional },
+               namespaces: new[] { "WebBanHangOnline.Controllers" }
+           );
+            routes.MapRoute(
+               name: "DetailOrder",
+               url: "{chi-tiet-don-hang}-p{id}",
+               defaults: new { controller = "ShoppingCart", action = "DetailOrder", id = UrlParameter.Optional },
+               namespaces: new[] { "WebBanHangOnline.Controllers" }
+              );
             routes.MapRoute(
                 name: "ProductCategory",
                 url: "danh-muc-san-pham/{alias}-{id}",
@@ -42,11 +66,12 @@ namespace WebBanHangOnline
                defaults: new { controller = "Product", action = "Detail", alias = UrlParameter.Optional },
                namespaces: new[] { "WebBanHangOnline.Controllers" }
            );
+           
             routes.MapRoute(
-                name: "Product",
-                url: "san-pham",
-                defaults: new { controller = "Product", action = "Index", alias = UrlParameter.Optional },
-                namespaces: new[] { "WebBanHangOnline.Controllers" }
+            name: "BaiViet",
+            url: "post/{alias}",
+            defaults: new { controller = "Article", action = "Index", alias = UrlParameter.Optional },
+            namespaces: new[] { "WebBanHangOnline.Controllers" }
             );
             routes.MapRoute(
             name: "DetailNew",
