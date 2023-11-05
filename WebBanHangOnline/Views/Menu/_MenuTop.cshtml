@@ -8,9 +8,13 @@
             {
                 item.Alias = "";
             }
+            if (!string.IsNullOrEmpty(item.Link))
+            {
+                item.Alias = item.Link;
+            }
             <li><a href="/@item.Alias">@item.Title</a></li>
         }
-        
+
         @*<li><a href="#">shop</a></li>
         <li><a href="#">promotion</a></li>
         <li><a href="#">pages</a></li>

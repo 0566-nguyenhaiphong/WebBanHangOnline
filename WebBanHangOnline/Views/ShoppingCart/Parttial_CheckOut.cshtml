@@ -1,26 +1,36 @@
-﻿@model  WebBanHangOnline.Models.OrderViewModel
-
-@using (Ajax.BeginForm("CheckOut", "ShoppingCart", new AjaxOptions
+﻿@model WebBanHangOnline.Models.OrderViewModel
+@using (Ajax.BeginForm("CheckOut", "Shoppingcart", new AjaxOptions
 {
     HttpMethod = "POST",
     UpdateTargetId = "load_data",
-    OnComplete = "OnSuccessCO",
-    OnFailure = "OnFailure"
-}, new { @Id = "myFrom" }))
+    OnSuccess = "OnSuccessCO",
+    OnFailure = "OnFailure",
+    OnBegin = "OnBeginCO"
+
+}, new { @Id = "myForm" }))
 {
     <script>
-        function OnSuccessCO() {
-            location.href = "/ShoppingCart/CheckOutSuccess";
+        function OnBeginCO() {
+            $('#btnCheckOut').attr("disabled", "disabled");
+            $('#load_send').html('<h2>Đang gửi....</h2>');
         }
-        function OnFailure(rs) {
-            if (!rs.success) {
-                $('#show_success').html("Bạn mua hàng thất bại! Xin vui lòng thử lại");
+        function OnSuccessCO(res) {
+            if (res.success) {
+                if (res.Code == 1) {
+                    location.href = "/ShoppingCart/CheckOutSuccess";
+                }
+                else {
+                    location.href = res.Url;
+                }
             }
         }
+                //function OnFailure() {
+
+                //}
     </script>
     @Html.AntiForgeryToken()
     <h3>Thông tin khách hàng</h3>
-    <div class="form-group ">
+    <div class="form-group">
         <label>Họ tên khách hàng</label>
         <input type="text" name="CustomerName" required class="form-control" autocomplete="off" />
     </div>
@@ -38,14 +48,22 @@
     </div>
     <div class="form-group">
         <label>Hình thức thanh toán</label>
-        <select class="form-control" name="TypePayment">
+        <select class="form-control" name="TypePayment" id="drTypePayment">
             <option value="1" selected>COD</option>
             <option value="2">Chuyển khoản</option>
         </select>
     </div>
-    <div class="form-group">
-        <button type="submit" class="btn btn-success btn btn-block">Đặt hàng</button>
+    <div class="form-group" id="load_form_payment" style="display:none;">
+        <h4> <label>Chọn phương thức thanh toán:</label><br /></h4>
+        <h5>Cách 1: Chuyển hướng sang VNPAY chọn phương thức thanh toán</h5>
+        <label><input type="radio" name="TypePaymentVN" value="0" checked /> Cổng thanh toán VNPAYQR </label>
+        <h5>Cách 2: Tách phương thức thanh toán tại site của Merchant</h5>
+        <label><input type="radio" name="TypePaymentVN" value="1" /> Thanh toán qua ứng dụng hỗ trợ VNPAYQR </label><br />
+        <label><input type="radio" name="TypePaymentVN" value="2" /> ATM-Tài khoản ngân hàng nội địa </label><br />
+        <label><input type="radio" name="TypePaymentVN" value="3" /> Thanh toán qua thẻ quốc tế </label><br />
     </div>
-
-
+    <div class="form-group" id="load_send"></div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-block btn-success" id="btnCheckOut">Đặt hàng</button>
+    </div>
 }

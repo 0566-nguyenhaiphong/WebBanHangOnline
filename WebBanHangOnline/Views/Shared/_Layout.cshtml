@@ -45,7 +45,7 @@
 
                                     <!-- Currency / Language / My Account -->
 
-                                    <li class="currency">
+                                    @*<li class="currency">
                                         <a href="#">
                                             usd
                                             <i class="fa fa-angle-down"></i>
@@ -68,7 +68,7 @@
                                             <li><a href="#">German</a></li>
                                             <li><a href="#">Spanish</a></li>
                                         </ul>
-                                    </li>
+                                    </li>*@
                                     <li class="account">
                                         @if (!Request.IsAuthenticated)
                                         {
@@ -87,9 +87,9 @@
                                                 Welcome: @User.Identity.Name
                                                 <i class="fa fa-angle-down"></i>
                                             </a>
-                                            <ul class="account_selection">
-                                                <li><a href="/"><i class="fa fa-sign-in" aria-hidden="true"></i>Profile</a></li>
-                                                <li><a href="javascript:document.getElementById('logOffForm').submit()"><i class="fa fa-user-plus" aria-hidden="true"></i> Lohout</a></li>
+                                            <ul class="account_selection">              
+                                                <li><a href="/account/profile"><i class="fa fa-user-plus" aria-hidden="true"></i>Profile</a></li>
+                                                <li><a href="javascript:document.getElementById('logOffForm').submit()"><i class="fa fa-sign-in" aria-hidden="true"></i> Logout</a></li>
                                             </ul>
                                         }
 

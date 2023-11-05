@@ -193,15 +193,18 @@
     <Compile Include="Areas\Admin\Controllers\ProductsController.cs" />
     <Compile Include="Areas\Admin\Controllers\RoleController.cs" />
     <Compile Include="Areas\Admin\Controllers\SettingSystemController.cs" />
+    <Compile Include="Areas\Admin\Controllers\StatisticalController.cs" />
     <Compile Include="Common\Common.cs" />
     <Compile Include="Common\SettingHelper.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ArticleController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\ReviewController.cs" />
     <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -270,6 +273,34 @@
     <Compile Include="Migrations\202310180254443_updateSubscribe.designer.cs">
       <DependentUpon>202310180254443_updateSubscribe.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202310300935051_UpdateOriginalPrice.cs" />
+    <Compile Include="Migrations\202310300935051_UpdateOriginalPrice.designer.cs">
+      <DependentUpon>202310300935051_UpdateOriginalPrice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202310301538574_updateCategory2.cs" />
+    <Compile Include="Migrations\202310301538574_updateCategory2.designer.cs">
+      <DependentUpon>202310301538574_updateCategory2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202310311019026_updateOrder2.cs" />
+    <Compile Include="Migrations\202310311019026_updateOrder2.designer.cs">
+      <DependentUpon>202310311019026_updateOrder2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202311020922051_addCustomerId.cs" />
+    <Compile Include="Migrations\202311020922051_addCustomerId.designer.cs">
+      <DependentUpon>202311020922051_addCustomerId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202311021532422_TableReview.cs" />
+    <Compile Include="Migrations\202311021532422_TableReview.designer.cs">
+      <DependentUpon>202311021532422_TableReview.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202311021537047_TableReview_updateForeignKey.cs" />
+    <Compile Include="Migrations\202311021537047_TableReview_updateForeignKey.designer.cs">
+      <DependentUpon>202311021537047_TableReview_updateForeignKey.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202311030255459_UpdateReview.cs" />
+    <Compile Include="Migrations\202311030255459_UpdateReview.designer.cs">
+      <DependentUpon>202311030255459_UpdateReview.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CommonAbstract.cs" />
@@ -287,15 +318,18 @@
     <Compile Include="Models\EF\Product.cs" />
     <Compile Include="Models\EF\ProductCategory.cs" />
     <Compile Include="Models\EF\ProductImage.cs" />
+    <Compile Include="Models\EF\ReviewProduct.cs" />
     <Compile Include="Models\EF\Subscribe.cs" />
     <Compile Include="Models\EF\SystemSetting.cs" />
     <Compile Include="Models\EF\ThongKe.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\OrderViewModel.cs" />
+    <Compile Include="Models\Payments\VnPayLibrary.cs" />
     <Compile Include="Models\SettingSystemViewModel.cs" />
     <Compile Include="Models\ShoppingCart.cs" />
     <Compile Include="Models\ThongKeViewModel.cs" />
+    <Compile Include="Models\ViewModels\RevenueStatisticViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -3252,7 +3286,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Scripts\autoNumeric.js" />
+    <Content Include="Scripts\autoNumeric-1.9.45.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -3456,6 +3490,7 @@
     <Content Include="Content\assets\plugins\bootstrap\js\bootstrap.min.js.map" />
     <Content Include="Areas\Admin\Views\SettingSystem\Index.cshtml" />
     <Content Include="Areas\Admin\Views\SettingSystem\Partial_Setting.cshtml" />
+    <Content Include="Areas\Admin\Views\Statistical\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -3468,6 +3503,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\jsConvert.js" />
     <Content Include="Scripts\jsShopping.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Web.config" />
@@ -3525,6 +3561,13 @@
     <Content Include="Views\News\Index.cshtml" />
     <Content Include="Views\News\Detail.cshtml" />
     <Content Include="Views\Home\Partial_Subcribe.cshtml" />
+    <Content Include="Views\Article\Index.cshtml" />
+    <Content Include="Views\ShoppingCart\VnpayReturn.cshtml" />
+    <Content Include="Views\Account\Profile.cshtml" />
+    <Content Include="Views\ShoppingCart\OrderList.cshtml" />
+    <Content Include="Views\ShoppingCart\DetailOrder.cshtml" />
+    <Content Include="Views\Review\_Review.cshtml" />
+    <Content Include="Views\Review\_Load_Review.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -3606,6 +3649,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202310180254443_updateSubscribe.resx">
       <DependentUpon>202310180254443_updateSubscribe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202310300935051_UpdateOriginalPrice.resx">
+      <DependentUpon>202310300935051_UpdateOriginalPrice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202310301538574_updateCategory2.resx">
+      <DependentUpon>202310301538574_updateCategory2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202310311019026_updateOrder2.resx">
+      <DependentUpon>202310311019026_updateOrder2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202311020922051_addCustomerId.resx">
+      <DependentUpon>202311020922051_addCustomerId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202311021532422_TableReview.resx">
+      <DependentUpon>202311021532422_TableReview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202311021537047_TableReview_updateForeignKey.resx">
+      <DependentUpon>202311021537047_TableReview_updateForeignKey.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202311030255459_UpdateReview.resx">
+      <DependentUpon>202311030255459_UpdateReview.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

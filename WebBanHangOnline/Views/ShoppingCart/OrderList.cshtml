@@ -1,0 +1,124 @@
+﻿@model IEnumerable<WebBanHangOnline.Models.EF.Order>
+
+@{
+    ViewBag.Title = "OrderList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/contact_styles.css">
+
+<style>
+    .news_section_container {
+        margin-top: 180px;
+    }
+
+    .row-item-new {
+        margin-bottom: 20px;
+    }
+
+    .title-news {
+        font-size: 24px;
+        border-bottom: 1px solid;
+        padding: 15px 0;
+        margin-bottom: 25px;
+    }
+
+    .img-box img {
+        max-width: 100%;
+        max-height: 100%;
+    }
+</style>
+<h2>Danh sách đơn hàng</h2>
+<div class="container news_section_container">
+    @if (Model == null)
+    {
+        <div>
+            Bạn chưa đăng nhập. Vui lòng <a href="/account/login">đăng nhập</a> để sử dụng tính năng này!
+        </div>
+    }
+    else
+    {
+        <table class="table">
+            <tr>
+
+                <th>
+                    Họ tên
+                </th>
+                <th>
+                    Phone
+                </th>
+
+                <th>
+                    Địa chỉ
+                </th>
+                <th>
+                    Tổng tiền
+                </th>
+                <th>
+                    Loại thanh toán
+                </th>
+                <th>
+                    Ngày đặt
+                </th>
+                <th>
+                    Tình trạng
+                </th>
+
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CustomerName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Phone)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Address)
+                    </td>
+                    <td>
+                        @WebBanHangOnline.Models.Common.FormatNumber.FormatNumber1(Convert.ToInt32(item.TotalAmount)) đ
+                    </td>
+
+                    <td>
+                        @{ if (@item.TypePayment == 1)
+                            {
+                                <div style="color:red">Thanh toán khi nhận hàng</div>
+                            }
+                            else if (@item.TypePayment == 2)
+                            {
+                                <div style="color:brown">Thanh toán chuyển khoản</div> }
+                        }
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreatedDate)
+                    </td>
+
+                    <td>
+                        @{ if (@item.Status == 1)
+                            {
+                                <div style="color:red">Chờ xác nhận</div>
+                            }
+                            else if (@item.Status == 2)
+                            {
+                                <div style="color:brown">Đã xác nhận</div> }
+                        }
+                    </td>
+
+                    <td>
+                        <a href="/chi-tiet-don-hang-p@(item.Id)" class="btn btn-sm btn btn-success">Chi tiết</a>
+                        
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+    }
+</div>
