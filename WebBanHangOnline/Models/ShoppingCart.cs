@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using WebBanHangOnline.Models.EF;
 
 namespace WebBanHangOnline.Models
 {
@@ -9,6 +10,8 @@ namespace WebBanHangOnline.Models
     public class ShoppingCart
     {
         public List<ShoppingCartItem> Items { get; set; }
+        public decimal TotalAmount { get; set; }
+        public decimal TotalDiscount { get; set; }
         public ShoppingCart() 
         { 
             this.Items = new List<ShoppingCartItem>();
@@ -37,7 +40,7 @@ namespace WebBanHangOnline.Models
             }
             
         }
-
+       
         public void UpdateQuantity(int id, int quantity)
         {
             var checkExist = Items.SingleOrDefault(x => x.ProductId == id);
@@ -45,6 +48,8 @@ namespace WebBanHangOnline.Models
             {
                 checkExist.Quantity = quantity;
                 checkExist.PriceTotal = checkExist.Price * checkExist.Quantity;
+               
+
             }
         }
         public decimal GetToTalPrice()
@@ -72,6 +77,9 @@ namespace WebBanHangOnline.Models
         public int Quantity { get; set; }
         public decimal Price { get; set; }
         public decimal PriceTotal { get; set;}
+       
+
+
     }
 
 }

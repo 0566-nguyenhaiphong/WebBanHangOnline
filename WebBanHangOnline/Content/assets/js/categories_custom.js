@@ -164,17 +164,43 @@ jQuery(document).ready(function ($) {
 				}
 
 				fav.on('click', function () {
+					var id = $(this).data("id")
+
 					if (active) {
 						fav.removeClass('active');
 						active = false;
+						DeleteWishList(id)
 					}
 					else {
 						fav.addClass('active');
 						active = true;
+						AddWishList(id)
 					}
 				});
 			});
 		}
+	}
+	function AddWishList(id) {
+		$.ajax({
+			url: '/WishList/PostWishList',
+			type: 'POST',
+			data: { ProductId: id },
+			success: function (res) {
+				if (!res.Success) {
+					alert(res.Message);
+				}
+			}
+		});
+	}
+	function DeleteWishList(id) {
+		$.ajax({
+			url: '/WishList/PostDeleteWishList',
+			type: 'POST',
+			data: { ProductId: id },
+			success: function (res) {
+				
+			}
+		})
 	}
 
 	/* 
@@ -330,8 +356,8 @@ jQuery(document).ready(function ($) {
 			{
 				range: true,
 				min: 0,
-				max: 1000000,
-				values: [0, 500000],
+				max: 100000000,
+				values: [0, 50000000],
 				slide: function (event, ui) {
 					$("#amount").val("đ" + ui.values[0] + " - đ" + ui.values[1]);
 					$('#FromAmount').val(ui.values[0]);

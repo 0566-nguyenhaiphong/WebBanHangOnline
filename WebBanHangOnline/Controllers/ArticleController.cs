@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity.Owin;
+using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -7,6 +9,8 @@ using WebBanHangOnline.Models;
 
 namespace WebBanHangOnline.Controllers
 {
+    
+
     public class ArticleController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -16,5 +20,10 @@ namespace WebBanHangOnline.Controllers
             var item = db.Posts.FirstOrDefault(x => x.Alias == alias);
             return View(item);
         }
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+        }
+
     }
 }

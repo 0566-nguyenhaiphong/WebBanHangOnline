@@ -7,7 +7,7 @@ using System.Web;
 
 namespace WebBanHangOnline.Models.EF
 {
-    [Table("ThongKes")]
+    [Table("tb_ThongKes")]
     public class ThongKe
     {
         [Key]

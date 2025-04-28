@@ -97,23 +97,39 @@ namespace WebBanHangOnline.Controllers
                 return View(model);
             }
 
-            // This doesn't count login failures towards account lockout
-            // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
+
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    // Lấy thông tin người dùng
+                    var user = await UserManager.FindByNameAsync(model.UserName);
+
+                    // Kiểm tra nếu người dùng có quyền admin
+                    if (UserManager.IsInRole(user.Id, "Admin") || UserManager.IsInRole(user.Id, "Employee"))
+                    {
+                        // Nếu có quyền admin, chuyển hướng đến "/admin/home"
+                        return RedirectToAction("Home", "Admin");
+                    }
+                    else
+                    {
+                        // Nếu không có quyền admin, chuyển hướng đến returnUrl hoặc trang mặc định
+                        return RedirectToLocal(returnUrl);
+                    }
+
                 case SignInStatus.LockedOut:
                     return View("Lockout");
+
                 case SignInStatus.RequiresVerification:
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Invalid login attempt.");
                     return View(model);
             }
         }
+
 
         //
         // GET: /Account/VerifyCode
@@ -228,7 +244,8 @@ namespace WebBanHangOnline.Controllers
             if (ModelState.IsValid)
             {
                 var user = await UserManager.FindByNameAsync(model.Email);
-                if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
+                var it = (await UserManager.IsEmailConfirmedAsync(user.Id));
+                if (user == null)
                 {
                     // Don't reveal that the user does not exist or is not confirmed
                     return View("ForgotPasswordConfirmation");
@@ -236,10 +253,11 @@ namespace WebBanHangOnline.Controllers
 
                 // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                 // Send an email with this link
-                // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
+                string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                WebBanHangOnline.Common.Common.SendMail("ShopOnline", "Quên mật khẩu", "bạn click vào <a href='" + callbackUrl + "'>link này</a> để reset mật khẩu", model.Email);
                 // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                // return RedirectToAction("ForgotPasswordConfirmation", "Account");
+                return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 
             // If we got this far, something failed, redisplay form
@@ -295,7 +313,7 @@ namespace WebBanHangOnline.Controllers
         {
             return View();
         }
-
+       
         //
         // POST: /Account/ExternalLogin
         [HttpPost]
@@ -392,7 +410,7 @@ namespace WebBanHangOnline.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email , CreateDate = DateTime.Now};
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
@@ -474,6 +492,13 @@ namespace WebBanHangOnline.Controllers
             {
                 return Redirect(returnUrl);
             }
+            // Kiểm tra xem người dùng có Role khác "Customer" không
+            if (User.IsInRole("Admin") || User.IsInRole("Employee"))
+            {
+                return RedirectToAction("Home", "Admin"); // Điều hướng đến trang Admin
+            }
+
+            // Nếu không có Role nào phù hợp, điều hướng đến trang chính (ví dụ: Home/Index)
             return RedirectToAction("Index", "Home");
         }
 

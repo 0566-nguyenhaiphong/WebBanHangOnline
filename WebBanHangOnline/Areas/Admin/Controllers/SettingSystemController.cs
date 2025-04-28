@@ -126,5 +126,9 @@ namespace WebBanHangOnline.Areas.Admin.Controllers
 
             return View("Partial_Setting");
         }
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+        }
     }
 }

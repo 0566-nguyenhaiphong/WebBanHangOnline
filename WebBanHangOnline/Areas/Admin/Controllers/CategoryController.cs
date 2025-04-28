@@ -79,6 +79,10 @@ namespace WebBanHangOnline.Areas.Admin.Controllers
                 return Json(new { success = true });
             }
             return Json(new { success = false });
-        }     
+        }
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+        }
     }
 }

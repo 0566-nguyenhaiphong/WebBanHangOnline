@@ -5,29 +5,58 @@
     <h3>GIỎ HÀNG<span style="float:right; position: relative"><small>@Model.Count()</small></span></h3>
     var i = 0;
     var priceTotal = decimal.Zero;
+
+    // Lấy thông tin giảm giá từ Session
+    var totalDiscountPrice = Session["TotalDiscountPrice"] as decimal? ?? 0;
+    var totalDiscountPercent = Session["TotalDiscountPercent"] as decimal? ?? 0;
+
     <div style="border:1px solid #000000; font-size: 15px">
         <table class="table">
             @foreach (var item in Model)
             {
                 priceTotal += item.PriceTotal;
+
                 <tr>
                     <td>@item.ProductName</td>
                     <td>@WebBanHangOnline.Models.Common.FormatNumber.FormatNumber1(Convert.ToInt32(item.Price))</td>
                 </tr>
             }
+            @if (totalDiscountPrice != 0)
+            {
+                <!-- Hiển thị thông tin giảm giá -->
+                <tr>
+                    <td>Giảm giá theo số tiền</td>
+                    <td>@WebBanHangOnline.Models.Common.FormatNumber.FormatNumber1(Convert.ToInt32(totalDiscountPrice))</td>
+                </tr>
+            }
+            @if (totalDiscountPercent != 0)
+            {
+                <tr>
+                    <td>Giảm giá theo phần trăm</td>
+                    <td>@WebBanHangOnline.Models.Common.FormatNumber.FormatNumber1(Convert.ToInt32(totalDiscountPercent))</td>
+                </tr>
+            }
+
             <tr>
                 <td>Tổng tiền</td>
-                <td>@WebBanHangOnline.Models.Common.FormatNumber.FormatNumber1(Convert.ToInt32(priceTotal))</td>
+                <!-- Trừ giảm giá từ tổng tiền -->
+                <td>
+                    @{
+                        int formattedValue = Convert.ToInt32(priceTotal - totalDiscountPrice - totalDiscountPercent);
+                        if (formattedValue < 0)
+                        {
+                            formattedValue = 0;
+                        }
+                    }
+
+                    @WebBanHangOnline.Models.Common.FormatNumber.FormatNumber1(formattedValue)
+                </td>
+
             </tr>
         </table>
     </div>
-    
-
-
-
 }
-
 else
 {
+    <!-- Hiển thị nếu giỏ hàng trống -->
 }
-

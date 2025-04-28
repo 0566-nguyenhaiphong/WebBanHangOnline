@@ -167,8 +167,9 @@ namespace WebBanHangOnline.Areas.Admin.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account", new { area = "" });
         }
+
         private IAuthenticationManager AuthenticationManager
         {
             get
@@ -191,6 +192,10 @@ namespace WebBanHangOnline.Areas.Admin.Controllers
                 return Redirect(returnUrl);
             }
             return RedirectToAction("Index", "Home");
+        }
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
         }
     }
 }

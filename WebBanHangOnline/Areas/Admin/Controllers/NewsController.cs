@@ -45,11 +45,10 @@ namespace WebBanHangOnline.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 model.CreatedDate = DateTime.Now;
-                model.CategoryId = 3;
+                model.CategoryId = 10;
                 model.ModifiedDate = DateTime.Now;
                 model.Alias = WebBanHangOnline.Models.Common.Filter.FilterChar(model.Title);
-                db.News.Attach(model);
-                db.Entry(model).State = System.Data.Entity.EntityState.Modified;
+                db.News.Add(model);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -119,8 +118,11 @@ namespace WebBanHangOnline.Areas.Admin.Controllers
                 }
             }
             return Json(new { success = false });
-        }   
-
+        }
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+        }
 
     }
 }

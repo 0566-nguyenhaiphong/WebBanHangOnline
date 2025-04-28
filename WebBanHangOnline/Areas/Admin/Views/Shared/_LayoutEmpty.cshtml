@@ -5,6 +5,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+
     <title>Hệ thống quản lý</title>
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -31,12 +33,17 @@
     <link rel="stylesheet" href="~/Content/clients//dist/css/adminlte.min.css">
     <!-- jQuery -->
     <script src="~/Content/clients//plugins/jquery/jquery.min.js"></script>
+
+
     <!-- Bootstrap 4 -->
     <script src="~/Content/clients//plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- Select2 -->
     <script src="~/Content/clients//plugins/select2/js/select2.full.min.js"></script>
+
     <script src="~/Content/ckeditor/ckeditor.js"></script>
     <script src="~/Content/ckfinder/ckfinder.js"></script>
+    @RenderSection("scripts", required: false)
+
 </head>
 <body>
     <div> 

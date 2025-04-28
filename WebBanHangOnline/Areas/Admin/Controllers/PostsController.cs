@@ -50,7 +50,6 @@ namespace WebBanHangOnline.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 model.ModifiedDate = DateTime.Now;
-                model.CategoryId = 3;
                 model.Alias = WebBanHangOnline.Models.Common.Filter.FilterChar(model.Title);
                 db.Posts.Attach(model);
                 db.Entry(model).State = System.Data.Entity.EntityState.Modified;
@@ -102,6 +101,10 @@ namespace WebBanHangOnline.Areas.Admin.Controllers
                 }
             }
             return Json(new { success = false });
+        }
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
         }
     }
 }

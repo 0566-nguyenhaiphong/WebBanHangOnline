@@ -44,6 +44,10 @@
                     <div class="col-md-3">
 
                         @Html.Action("Partial_Item_ThanhToan", "ShoppingCart")
+                        <br />
+                        <h3>ADP Shop voucher</h3>
+                        <a href="" class="btnVoucher">Nhấn để chọn voucher</a>
+
                     </div>
                 </div>
 
@@ -57,19 +61,58 @@
         </div>
     </div>
 </div>
-
+<div id="dialog">
+    <iframe id="myIframe" style="border: 0; width: 100%; height: 100%;"></iframe>
+</div>
 @section scripts{
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script src="~/Content/assets/js/categories_custom.js"></script>
     <script>
-        
-        
+       
         $(document).ready(function () {
+            var isDialogClosed = false; 
+            $('#dialog').dialog({
+                autoOpen: false,
+                show: "fade",
+                hide: "fade",
+                modal: true,
+                height: '600',
+                width: '700',
+                resizable: true,
+                title: 'Quản lý voucher',
+                close: function () {
+                    isDialogClosed = true;                     
+                    window.location.reload();
+                },
+                open: function () {
+                    // Áp dụng CSS cho voucher trong dialog khi nó được mở
+                    $(this).find('.row-item-new').css({
+                        'max-width': '100%',
+                        'border-radius': '8px',
+                        'overflow': 'hidden',
+                        'box-shadow': '0 4px 8px rgba(0, 0, 0, 0.1)',
+                        'transition': 'transform 0.3s'
+                    });
+
+                    
+                }
+            });
+
+            $('body').on('click', '.btnVoucher', function () {
+                var proid = $(this).attr('data-id')
+                $('#dialog #myIframe').attr('src', '/Shoppingcart/ListVoucher');
+                $('#dialog').dialog('open')
+                return false
+            })
+            
+           
             $('body').on('change', '#drTypePayment', function () {
                 var type = $(this).val();
                 $('#load_form_payment').hide();
                 if (type == "2") {
                     $('#load_form_payment').show();
                 }
+               
             });
             $('#myFrom').validate({
                 rules: {
@@ -94,6 +137,26 @@
                     'Email': 'Email chưa hợp lệ'
                 }
             });
+           
+
+            // Mã JavaScript hiện tại của bạn...
+            
+            $(window).on('beforeunload', function () {
+                // Kiểm tra xem có phải là lần tải trang đầu tiên không trước khi xóa session
+                if (!isDialogClosed) {
+                    $.ajax({
+                        url: '/ShoppingCart/ClearTotalDiscount',
+                        type: 'POST',
+                        success: function (response) {
+                            // Xử lý phản hồi hoặc thực hiện các hành động khác nếu cần
+                        }
+                    });
+                }
+                 
+            });
+
+           
+
         });
     </script>
 }

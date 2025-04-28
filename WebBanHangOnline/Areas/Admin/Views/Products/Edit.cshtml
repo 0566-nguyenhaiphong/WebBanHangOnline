@@ -88,6 +88,11 @@
                                                 @Html.ValidationMessageFor(x => x.ProductCode, null, new { @class = "text-danger" })
                                             </div>
                                             <div class="form-group">
+                                                <label for="ProductCode"> 3d Model</label>
+                                                @Html.TextBoxFor(x => x.Image, new { @class = "form-control", @placeholder = "Link" })
+                                                @Html.ValidationMessageFor(x => x.Image, null, new { @class = "text-danger" })
+                                            </div>
+                                            <div class="form-group">
                                                 <label for="Description"> Danh mục</label>
                                                 @Html.DropDownListFor(x => x.ProductCategoryId, ViewBag.ProductCategory as SelectList, "-Chọn danh mục sản phẩm-", new { @class = "form-control" })
                                                 @Html.ValidationMessageFor(x => x.ProductCategoryId, null, new { @class = "text-danger" })

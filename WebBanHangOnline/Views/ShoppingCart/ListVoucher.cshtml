@@ -1,0 +1,248 @@
+﻿@model  IEnumerable<WebBanHangOnline.Models.EF.Voucher>
+
+@{
+    ViewBag.Title = "Danh sách voucher";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutEmpty.cshtml";
+}
+
+<style>
+    .news_section_container {
+        margin-top: 50px;
+    }
+
+    .row-item-new {
+        max-width: 100%;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s;
+    }
+
+        .row-item-new:hover {
+            transform: scale(1.02);
+        }
+
+    .title-news {
+        font-size: 28px;
+        border-bottom: 2px solid #333;
+        padding: 20px 0;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+
+    .img-box {
+        max-width: 100%;
+        height: 100px; /* Điều chỉnh chiều cao của hình ảnh voucher */
+        overflow: hidden;
+        background-color: #f0f0f0;
+    }
+
+        .img-box img {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+        }
+
+    .content-box {
+        padding: 5px;
+    }
+
+    h3 {
+        font-size: 16px; /* Điều chỉnh kích thước font chữ */
+        margin-bottom: 5px;
+    }
+
+    .description-box {
+        color: #555;
+        font-size: 15px;
+    }
+
+    .pagination {
+        margin: 20px 0;
+        display: flex;
+        justify-content: center;
+    }
+
+        .pagination li {
+            margin: 0 5px;
+        }
+
+        .pagination a {
+            display: block;
+            padding: 8px 12px;
+            background-color: #f0f0f0;
+            border-radius: 4px;
+            color: #333;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+            .pagination a:hover {
+                background-color: #ddd;
+            }
+
+    .active a {
+        background-color: #333;
+        color: #fff;
+    }
+
+
+    .row-item-new {
+        position: relative;
+    }
+
+    .content-box {
+        padding: 20px 20px 20px 0;
+    }
+
+    .apply-button-container {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .apply-button {
+        padding: 10px 20px;
+        background-color: #333;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s;
+    }
+
+        .apply-button:hover {
+            background-color: #555;
+        }
+</style>
+<section class="content">
+    <div class="card-body">
+        <div class="container news_section_container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 class="title-news">Khuyến mãi</h1>
+                </div>
+            </div>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var item in Model)
+                {
+                    <!-- Trong foreach -->
+                    <div class="row row-item-new" id="trow_@item.Id">
+                        <div class="col-3">
+                            <div class="img-box">
+                                <img src="~/Content/assets/dist/img/ADPshop.jpg" alt="@item.Title" />
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            <div class="content-box">
+                                <h3><a href="" title="@item.Title">@item.Title</a></h3>
+                                <div class="description-box">
+                                    @item.Description
+                                </div>
+                                <div>
+                                    Code: @item.VoucherCode
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-1">
+                            <div class="content-box">
+                                <!-- Thêm checkbox ở đây -->
+                                @if (item.isApply)
+                                {
+                                    <input type="checkbox" checked class="cbkItem" value="@item.Id" />
+
+                                }
+                                else
+                                {
+                                    <input type="checkbox" class="cbkItem" value="@item.Id" />
+
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+
+            <!-- Di chuyển apply-button-container ra khỏi vòng lặp -->
+            <div class="apply-button-container">
+                <a href="#" class="btn btn-success applyVoucher">Áp dụng</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+   $(document).ready(function () {
+    $('body').on('click', '.applyVoucher', function (event) {
+        event.preventDefault();
+
+        var str = "";
+        var checkboxes = $('.row-item-new').find('input:checkbox:checked');
+        checkboxes.each(function (index, checkbox) {
+            var _id = $(checkbox).val();
+            if (index === 0) {
+                str += _id;
+            } else {
+                str += "," + _id;
+            }
+        });
+
+        if (str.length > 0) {
+            $.ajax({
+                url: '@Url.Action("ApplyVoucher", "ShoppingCart")',
+                type: 'POST',
+                data: { ids: str },
+                success: function (rs) {
+                    if (rs.success) {
+                        alert("Áp dụng thành công");
+                    } else {
+                        alert("Có lỗi xảy ra: " + rs.error);
+                    }
+                },
+                error: function () {
+                    alert("Có lỗi xảy ra trong quá trình áp dụng voucher.");
+                }
+            });
+        }
+        else {
+            $.ajax({
+                url: '/ShoppingCart/ClearTotalDiscount',
+                type: 'POST',
+                success: function (response) {
+                    // Xử lý phản hồi hoặc thực hiện các hành động khác nếu cần
+                }
+            });
+        }
+    });
+
+    // Thêm sự kiện khi checkbox thay đổi
+    $('body').on('change', '.cbkItem', function () {
+        if (!$(this).prop('checked')) {
+            // Nếu checkbox không được chọn, cập nhật lại isApply của voucher
+            var id = $(this).val();
+            $.ajax({
+                url: '@Url.Action("UpdateVoucherStatus", "ShoppingCart")',
+                type: 'POST',
+                data: { voucherId: id, isApply: false },
+                success: function (rs) {
+                    if (rs.success) {
+                        console.log("Đã cập nhật isApply của voucher.");
+                    } else {
+                        console.error("Có lỗi xảy ra: " + rs.error);
+                    }
+                },
+                error: function () {
+                    console.error("Có lỗi xảy ra trong quá trình cập nhật voucher.");
+                }
+            });
+        }
+    });
+});
+
+
+
+</script>
+

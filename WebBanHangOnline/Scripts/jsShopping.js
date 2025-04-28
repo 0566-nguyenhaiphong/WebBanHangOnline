@@ -56,6 +56,7 @@
         }
 
     })
+   
     //$('body').on('click', '.submitBtn', function (e) {
     //    $.ajax({
     //        url: '/ShoppingCart/CheckOut',
@@ -189,4 +190,5 @@ function toast({ title = "", message = "", type = "info", duration = 3000 }) {
         main.appendChild(toast);
     }
 }
+
 

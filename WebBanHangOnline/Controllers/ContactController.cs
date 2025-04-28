@@ -6,6 +6,8 @@ using System.Web.Mvc;
 
 namespace WebBanHangOnline.Controllers
 {
+   
+
     public class ContactController : Controller
     {
         // GET: Contact

@@ -16,7 +16,7 @@ namespace WebBanHangOnline.Controllers
         // GET: Product
         public ActionResult Index(int? id, int? page, string alias)
         {
-            var pageSize = 8;
+            var pageSize = 12;
             if (page == null)
             {
                 page = 1;
@@ -42,6 +42,8 @@ namespace WebBanHangOnline.Controllers
                 db.Products.Attach(item);
                 item.ViewCount = item.ViewCount + 1;
                 db.Entry(item).Property(x => x.ViewCount).IsModified = true;
+                var rv = db.Review.Where(x => x.ProductId == id).OrderByDescending(x => x.Id).ToList();
+                ViewBag.Count = rv.Count;
                 db.SaveChanges();
             }
             return View(item);
@@ -71,8 +73,13 @@ namespace WebBanHangOnline.Controllers
             return View(items);
         }
         public ActionResult Partial_ItemsByCateId()
-        {
-            var items = db.Products.Where(x=> x.isHome && x.IsActice).Take(12).ToList();
+        { 
+            var items = db.Products
+                .Where(x => x.isHome && x.IsActice)
+                .GroupBy(x => x.ProductCategoryId) 
+                .SelectMany(group => group.Take(5)) 
+                .ToList();
+
             return PartialView(items);
         }
         public ActionResult Partial_ProductSale()

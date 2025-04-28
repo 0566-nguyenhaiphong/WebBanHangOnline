@@ -1,0 +1,126 @@
+﻿@model WebBanHangOnline.Models.EF.Voucher
+@{
+    ViewBag.Title = "Cập nhật voucher";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@section naviheader{
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/home" class="nav-link">Trang chủ</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/category" class="nav-link">Mã giảm giá</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="#" class="nav-link">Cập nhật</a>
+        </li>
+    </ul>
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Cập nhật voucher</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Mã giảm giá</a></li>
+                    <li class="breadcrumb-item active">Cập nhật</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Thông tin cập nhật voucher</h3>
+
+        </div>
+
+        <div class="card-body">
+            <div class="bs-stepper-content">
+                <!-- your steps content here -->
+                @using (Html.BeginForm("Edit", "Voucher", FormMethod.Post, new { }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+                    @Html.HiddenFor(x => x.Id)
+                    @Html.HiddenFor(x => x.CreatedDate)
+                    @Html.HiddenFor(x => x.VoucherCode)
+                    @Html.HiddenFor(x => x.ReducePrice)
+                    <div id="logins-part" class="content active dstepper-block" role="tabpanel" aria-labelledby="logins-part-trigger">
+                        <div class="form-group">
+                            <label for="Title">Tên danh mục</label>
+                            @Html.TextBoxFor(x => x.Title, new { @class = "form-control", @placeholder = "Tên danh mục" })
+                            @Html.ValidationMessageFor(x => x.Title, null, new { @class = "text-danger" })
+
+                        </div>
+                        <div class="form-group">
+                            <label for="ReducePrice">Giá giảm</label>
+                            <input type="text" name="demoPrice" id="demoPrice" Value=@Model.ReducePrice class="form-control auto" data-a-dec="," data-a-sep=".">
+                            @Html.Hidden("ReducePrice", 0, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(x => x.ReducePrice, null, new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label for="PercentReduce">Phần trăm giảm</label>
+
+                            @Html.TextBox("PercentReduce", 0, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(x => x.PercentReduce, null, new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label for="Description">Mô tả</label>
+                            @Html.TextBoxFor(x => x.Description, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(x => x.Description, null, new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label for="Detail"> Chi tiết</label>
+                            @Html.TextAreaFor(x => x.Detail, new { @class = "form-control", @placeholder = "Chi tiết", @id = "txtDetail" })
+                            @Html.ValidationMessageFor(x => x.Detail, null, new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            <a href="/admin/voucher" class="btn btn-danger">Quay lại</a>
+                            <button type="submit" class="btn btn-primary">Lưu</button>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer">
+
+        </div>
+        <!-- /.card-footer-->
+    </div>
+    <!-- /.card -->
+
+</section>
+<!-- /.content -->
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('.auto').autoNumeric('init')
+            $('#demoPrice').bind('blur focusout keypress keyup', function () {
+                var demoGet = $('#demoPrice').autoNumeric('get')
+                $('#ReducePrice').val(demoGet)
+                $('#ReducePrice').autoNumeric('set', demoGet)
+            })
+            CKEDITOR.replace('txtDetail', {
+                customConfig: '/content/ckeditor/config.js',
+                extraAllowedContent: 'span',
+            })
+        })
+    </script>
+}

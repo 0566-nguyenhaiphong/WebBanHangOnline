@@ -1,4 +1,5 @@
-﻿
+﻿@model WebBanHangOnline.Models.AdminDashboardViewModel
+@using WebBanHangOnline.Models.Common
 @{
     ViewBag.Title = "Trang chủ admin";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
@@ -9,12 +10,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Blank Page</h1>
+                <h1>Tổng quan</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active">Blank Page</li>
+                    <li class="breadcrumb-item active">Tổng quan</li>
                 </ol>
             </div>
         </div>
@@ -23,31 +24,69 @@
 
 <!-- Main content -->
 <section class="content">
+    <div class="row">
+        <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-info">
+                <div class="inner">
+                    <h3>@Model.TotalOrders</h3>
 
-    <!-- Default box -->
-    <div class="card">
-        <div class="card-header">
-            <h3 class="card-title">Title</h3>
-
-            <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                    <i class="fas fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-                    <i class="fas fa-times"></i>
-                </button>
+                    <p>Đơn hàng</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+                </div>
+                <a href="/admin/order" class="small-box-footer">Chi tiết <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div>
-        <div class="card-body">
-            Start creating your amazing application!
-        </div>
-        <!-- /.card-body -->
-        <div class="card-footer">
-            Footer
-        </div>
-        <!-- /.card-footer-->
-    </div>
-    <!-- /.card -->
+        <!-- ./col -->
+        <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-success">
+                <div class="inner">
+                    <h3>@FormatNumber.FormatNumber1(Convert.ToInt32(Model.TotalRevenue)) đ</h3>
 
+                    <p>Doanh thu</p>
+                </div>
+                <div class="icon">
+                    <i class="nav-icon fa fa-bar-chart" aria-hidden="true"></i>
+
+                </div>
+                <a href="/admin/Statistical/index" class="small-box-footer">Chi tiết <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-warning">
+                <div class="inner">
+                    <h3>@Model.TotalUsers</h3>
+
+                    <p>Người dùng</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-users" aria-hidden="true"></i>
+                </div>
+                <a href="/admin/account" class="small-box-footer">Chi tiết <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-danger">
+                <div class="inner">
+                    <h3>@Model.TotalProducts</h3>
+
+                    <p>Sản phẩm</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-mobile" aria-hidden="true"></i>
+                </div>
+                <a href="/admin/products" class="small-box-footer">Chi tiết <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <!-- ./col -->
+    </div>
 </section>
 <!-- /.content -->
+

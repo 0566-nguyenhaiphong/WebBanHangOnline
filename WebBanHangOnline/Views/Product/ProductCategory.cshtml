@@ -13,7 +13,7 @@
 
             <div class="breadcrumbs d-flex flex-row align-items-center">
                 <ul>
-                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html">Trang chủ</a></li>
                     <li class="active"><a href="/"><i class="fa fa-angle-right" aria-hidden="true"></i>@ViewBag.CateName</a></li>
                 </ul>
             </div>
@@ -23,26 +23,27 @@
             <div class="sidebar">
                 <div class="sidebar_section">
                     <div class="sidebar_title">
-                        <h5>Product Category</h5>
+                        <h5>Hãng điện thoại</h5>
                     </div>
                     <!--MenuLeft-->
-                    @Html.Action("MenuLeft", "Menu", new { id = ViewBag.CateId })
+                    @Html.Action("MenuLeft", "Menu")
                 </div>
 
                 <!-- Price Range Filtering -->
                 <div class="sidebar_section">
                     <div class="sidebar_title">
-                        <h5>Filter by Price</h5>
+                        <h5>Tìm kiếm theo giá</h5>
                     </div>
                     <p>
-                        <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+                        <input type="text" id="amount" readonly="" style="border:0; color:#f6931f; font-weight:bold;">
                         <input type="hidden" id="FromAmount" />
                         <input type="hidden" id="ToAmount" />
                     </p>
-                    <div id="slider-range"></div>
-                    <div class="filter_button"><span>filter</span></div>
+                    <div id="slider-range" class="ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"><div class="ui-slider-range ui-corner-all ui-widget-header" style="left: 0%; width: 58%;"></div><span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 0%;"></span><span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 58%;"></span></div>
+                    <div class="filter_button"><span>Tìm kiếm</span></div>
 
-
+                    @*<hr />
+                        @Html.Action("Refresh", "Home")*@
                 </div>
 
                 <!-- Sizes -->
@@ -99,41 +100,41 @@
                             <div class="product_sorting_container product_sorting_container_top">
                                 <ul class="product_sorting">
                                     <li>
-                                        <span class="type_sorting_text">Default Sorting</span>
+                                        <span class="type_sorting_text">Sắp xếp mặc định</span>
                                         <i class="fa fa-angle-down"></i>
                                         <ul class="sorting_type">
-                                            <li class="type_sorting_btn" data-isotope-option="{ &quot;sortBy&quot;: &quot;original-order&quot; }"><span>Default Sorting</span></li>
-                                            <li class="type_sorting_btn" data-isotope-option="{ &quot;sortBy&quot;: &quot;price&quot; }"><span>Price</span></li>
-                                            <li class="type_sorting_btn" data-isotope-option="{ &quot;sortBy&quot;: &quot;name&quot; }"><span>Product Name</span></li>
+                                            <li class="type_sorting_btn" data-isotope-option="{ &quot;sortBy&quot;: &quot;original-order&quot; }"><span>Mặc định</span></li>
+                                            <li class="type_sorting_btn" data-isotope-option="{ &quot;sortBy&quot;: &quot;price&quot; }"><span>Giá</span></li>
+                                            <li class="type_sorting_btn" data-isotope-option="{ &quot;sortBy&quot;: &quot;name&quot; }"><span>Tên</span></li>
                                         </ul>
                                     </li>
                                     <li>
-                                        <span>Show</span>
-                                        <span class="num_sorting_text">6</span>
+                                        <span>Hiển thị</span>
+                                        <span class="num_sorting_text">12</span>
                                         <i class="fa fa-angle-down"></i>
                                         <ul class="sorting_num">
-                                            <li class="num_sorting_btn"><span>6</span></li>
+                                            <li class="num_sorting_btn"><span>4</span></li>
+                                            <li class="num_sorting_btn"><span>8</span></li>
                                             <li class="num_sorting_btn"><span>12</span></li>
-                                            <li class="num_sorting_btn"><span>24</span></li>
                                         </ul>
                                     </li>
                                 </ul>
-                                <div class="pages d-flex flex-row align-items-center">
-                                    <div class="page_current">
-                                        <span> @Model.PageNumber</span>
-                                        <ul class="page_selection">
-                                            @for (int i = 1; i <= Model.PageCount; i++)
-                                            {
-                                                <li><a href="@Url.Action("Index", new { page = i })">@i</a></li>
-                                            }
-                                        </ul>
-                                    </div>
-                                    <div class="page_total"><span>of</span> @Model.PageCount</div>
-                                    @if (Model.HasNextPage)
-                                    {
-                                        <div id="next_page" class="page_next"><a href="@Url.Action("Index", new { page = Model.PageNumber + 1 })"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a></div>
-                                    }
-                                </div>
+                                @*<div class="pages d-flex flex-row align-items-center">
+                                        <div class="page_current">
+                                            <span> @Model.PageNumber</span>
+                                            <ul class="page_selection">
+                                                @for (int i = 1; i <= Model.PageCount; i++)
+                                                {
+                                                    <li><a href="@Url.Action("Index", new { page = i })">@i</a></li>
+                                                }
+                                            </ul>
+                                        </div>
+                                        <div class="page_total"><span>of</span> @Model.PageCount</div>
+                                        @if (Model.HasNextPage)
+                                        {
+                                            <div id="next_page" class="page_next"><a href="@Url.Action("Index", new { page = Model.PageNumber + 1 })"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a></div>
+                                        }
+                                    </div>*@
 
 
                             </div>
@@ -153,14 +154,28 @@
                                         {
                                             strImg = img.Image;
                                         }
-
+                                        var wishlist = item.Wishlists.FirstOrDefault(x => x.UserName == User.Identity.Name);
+                                        var isWishList = false;
+                                        if (wishlist != null)
+                                        {
+                                            isWishList = true;
+                                        }
                                         <div class="product-item @item.ProductCategory.Alias">
 
                                             <div class="product discount product_filter">
                                                 <div class="product_image">
                                                     <img src="@strImg" alt="@item.Title">
                                                 </div>
-                                                <div class="favorite favorite_left"></div>
+                                                @if (isWishList == true)
+                                                {
+                                                    <div data-id="@item.Id" class="favorite favorite_left active"></div>
+
+                                                }
+                                                else
+                                                {
+                                                    <div data-id="@item.Id" class="favorite favorite_left"></div>
+
+                                                }
                                                 @if (item.PriceSale > 0)
                                                 {
                                                     <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>Sale</span></div>
@@ -177,14 +192,14 @@
                                                     else
                                                     {
                                                         <div class="product_price">@WebBanHangOnline.Models.Common.FormatNumber.FormatNumber1(Convert.ToInt32(item.Price)) đ</div>
-                                                        <div style="display:none;" class="in_product_price"> @(Convert.ToInt32(item.Price))</div>
+                                                        <div style="display:none;" class="in_product_price">@(Convert.ToInt32(item.Price))</div>
 
                                                     }
                                                 </div>
                                             </div>
                                             <div class="red_button add_to_cart_button"><a href="#" class="btnAddToCart" data-id="@item.Id">add to cart</a></div>
-                                        </div>
 
+                                        </div>
                                     }
                                 }
 
@@ -196,37 +211,52 @@
                             <!-- Product Sorting -->
 
                             <div class="product_sorting_container product_sorting_container_bottom clearfix">
-                                <ul class="product_sorting">
-                                    <li>
-                                        <span>Show:</span>
-                                        <span class="num_sorting_text">04</span>
-                                        <i class="fa fa-angle-down"></i>
-                                        <ul class="sorting_num">
-                                            <li class="num_sorting_btn"><span>01</span></li>
-                                            <li class="num_sorting_btn"><span>02</span></li>
-                                            <li class="num_sorting_btn"><span>03</span></li>
-                                            <li class="num_sorting_btn"><span>04</span></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                                <div class="pages d-flex flex-row align-items-center">
-                                    <div class="page_current">
-                                        <span> @Model.PageNumber</span>
-                                        <ul class="page_selection">
+                                @*<ul class="product_sorting">
+                                        <li>
+                                            <span>Show:</span>
+                                            <span class="num_sorting_text">04</span>
+                                            <i class="fa fa-angle-down"></i>
+                                            <ul class="sorting_num">
+                                                <li class="num_sorting_btn"><span>01</span></li>
+                                                <li class="num_sorting_btn"><span>02</span></li>
+                                                <li class="num_sorting_btn"><span>03</span></li>
+                                                <li class="num_sorting_btn"><span>04</span></li>
+                                            </ul>
+                                        </li>
+                                    </ul>*@
+                                <div class="row">
+                                    <div class="col-6"></div>
+                                    <div class="col-6 text-right">
+                                        <ul class="pagination">
+                                            @if (Model.HasPreviousPage)
+                                            {
+                                                <li class="page-item">
+                                                    <a class="page-link" href="@Url.Action("ProductCategory", new { page = 1 })">Đầu</a>
+                                                </li>
+                                                <li class="page-item">
+                                                    <a class="page-link" href="@Url.Action("ProductCategory", new { page = Model.PageNumber - 1 })">Trước</a>
+                                                </li>
+                                            }
+
                                             @for (int i = 1; i <= Model.PageCount; i++)
                                             {
-                                                <li><a href="@Url.Action("Index", new { page = i })">@i</a></li>
+                                                <li class="page-item @(i == Model.PageNumber ? "active" : "")">
+                                                    <a class="page-link" href="@Url.Action("ProductCategory", new { page = i })">@i</a>
+                                                </li>
+                                            }
+
+                                            @if (Model.HasNextPage)
+                                            {
+                                                <li class="page-item">
+                                                    <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber + 1 })">Tiếp</a>
+                                                </li>
+                                                <li class="page-item">
+                                                    <a class="page-link" href="@Url.Action("Index", new { page = Model.PageCount })">Cuối</a>
+                                                </li>
                                             }
                                         </ul>
                                     </div>
-                                    <div class="page_total"><span>of</span> @Model.PageCount</div>
-                                    @if (Model.HasNextPage)
-                                    {
-                                        <div id="next_page" class="page_next"><a href="@Url.Action("Index", new { page = Model.PageNumber + 1 })"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a></div>
-                                    }
                                 </div>
-
-
                             </div>
                         </div>
                     </div>

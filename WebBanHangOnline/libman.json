@@ -1,0 +1,10 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "ar.js@2.2.2",
+      "destination": "wwwroot/ar.js/"
+    }
+  ]
+}

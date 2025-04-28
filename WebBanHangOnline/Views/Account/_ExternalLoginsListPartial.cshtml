@@ -1,25 +1,43 @@
 ﻿@model WebBanHangOnline.Models.ExternalLoginListViewModel
 @using Microsoft.Owin.Security
 
-<h4>Use another service to log in.</h4>
-<hr />
+
 @{
     var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
-    if (loginProviders.Count() == 0) {
+    if (loginProviders.Count() == 0)
+    {
         <div>
-            <p>
-                There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-                for details on setting up this ASP.NET application to support logging in via external services.
-            </p>
+            <!-- Không có external login providers -->
         </div>
     }
-    else {
-        using (Html.BeginForm("ExternalLogin", "Account", new { ReturnUrl = Model.ReturnUrl }, FormMethod.Post, new { role = "form" })) {
+    else
+    {
+        using (Html.BeginForm("ExternalLogin", "Account", new { ReturnUrl = Model.ReturnUrl }, FormMethod.Post, new { role = "form" }))
+        {
             @Html.AntiForgeryToken()
             <div id="socialLoginList">
                 <p>
-                    @foreach (AuthenticationDescription p in loginProviders) {
-                        <button type="submit" class="btn btn-outline-dark" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Log in using your @p.Caption account">@p.AuthenticationType</button>
+                    @foreach (AuthenticationDescription p in loginProviders)
+                    {
+                        if (p.AuthenticationType == "Google")
+                        {
+                            <!-- Nút đăng nhập bằng Google -->
+                            <button type="submit" class="btn btn-block btn-danger" name="provider" value="Google" title="Log in using your Google account">
+                                <i class="fab fa-google-plus mr-2"></i>Sign in using Google+
+                            </button>
+                       
+                    
+                        }
+                        else if (p.AuthenticationType == "Facebook")
+                        {
+                            <!-- Nút đăng nhập bằng Facebook -->
+                            <button type="submit" class="btn btn-block btn-primary" name="provider" value="Facebook" title="Log in using your Facebook account"><i class="fab fa-facebook mr-2"></i> Sign in using Facebook</button>
+                        }
+                        else
+                        {
+                            <!-- Các nút đăng nhập cho các provider khác -->
+                            <button type="submit" class="btn btn-outline-dark" name="provider" value="@p.AuthenticationType" title="Log in using your @p.Caption account">@p.AuthenticationType</button>
+                        }
                     }
                 </p>
             </div>

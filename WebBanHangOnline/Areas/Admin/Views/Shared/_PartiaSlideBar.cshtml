@@ -35,8 +35,17 @@
             <!-- Add icons to the links using the .nav-icon class
     with font-awesome or any other icon font library -->
             <li class="nav-item">
+                <a href="/admin/home" class="nav-link">
+                    <i class="nav-icon fa fa-tachometer"></i>
+                    <p>
+                        Tổng quan
+                        @*<span class="right badge badge-danger">New</span>*@
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a href="/admin/category" class="nav-link">
-                    <i class="nav-icon fas fa-th"></i>
+                    <i class="nav-icon fa fa-th"></i>
                     <p>
                         Danh mục
                         @*<span class="right badge badge-danger">New</span>*@
@@ -46,7 +55,7 @@
 
             <li class="nav-item">
                 <a href="/admin/role" class="nav-link">
-                    <i class="nav-icon fas fa-th"></i>
+                    <i class=" nav-icon fa fa-lock"></i>
                     <p>
                         Phân quyền
                         @*<span class="right badge badge-danger">New</span>*@
@@ -55,7 +64,7 @@
             </li>
             <li class="nav-item">
                 <a href="/admin/news" class="nav-link">
-                    <i class="nav-icon fas fa-th"></i>
+                    <i class="nav-icon fa fa-newspaper-o"></i>
                     <p>
                         Tin tức
                         @*<span class="right badge badge-danger">New</span>*@
@@ -64,7 +73,7 @@
             </li>
             <li class="nav-item">
                 <a href="/admin/posts" class="nav-link">
-                    <i class="nav-icon fas fa-th"></i>
+                    <i class="nav-icon fa fa-file-text"></i>
                     <p>
                         Bài viết
                         @*<span class="right badge badge-danger">New</span>*@
@@ -73,7 +82,7 @@
             </li>
             <li class="nav-item">
                 <a href="/admin/order" class="nav-link">
-                    <i class="nav-icon fas fa-th"></i>
+                    <i class="nav-icon fa fa-shopping-bag"></i>
                     <p>
                         Đơn hàng
                         @*<span class="right badge badge-danger">New</span>*@
@@ -81,33 +90,33 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="/admin/news" class="nav-link">
-                    <i class="nav-icon fas fa-th"></i>
+                <a href="/admin/voucher" class="nav-link">
+                    <i class="nav-icon fa fa-bookmark"></i>
                     <p>
-                        Quảng cáo
+                        Khuyến mãi
                         @*<span class="right badge badge-danger">New</span>*@
                     </p>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="admin/Category" class="nav-link">
-                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                    <i class="nav-icon fa fa-mobile"></i>
                     <p>
                         Quản lý sản phẩm
 
-                        <i class="right fas fa-angle-left"></i>
+                        <i class="right fa fa-angle-left"></i>
                     </p>
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
                         <a href="~/admin/productcategory" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
+                            <i class="fa fa-circle nav-icon"></i>
                             <p>Danh mục sản phẩm</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="~/admin/products" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
+                            <i class="fa fa-circle nav-icon"></i>
                             <p>Sản phẩm </p>
                         </a>
                     </li>
@@ -115,7 +124,7 @@
             </li>
             <li class="nav-item">
                 <a href="~/admin/Statistical/index" class="nav-link">
-                    <i class="nav-icon fas fa-th"></i>
+                    <i class="nav-icon fa fa-bar-chart"></i>
                     <p>
                         Thống kê
                         @*<span class="right badge badge-danger">New</span>*@
@@ -124,7 +133,7 @@
             </li>
             <li class="nav-item">
                 <a href="~/admin/SettingSystem/index" class="nav-link">
-                    <i class="nav-icon fas fa-th"></i>
+                    <i class="nav-icon fa fa-cog"></i>
                     <p>
                         Cấu hình hệ thống
                         @*<span class="right badge badge-danger">New</span>*@
@@ -133,7 +142,7 @@
             </li>
             <li class="nav-item">
                 <a href="/admin/account" class="nav-link">
-                    <i class="nav-icon fas fa-th"></i>
+                    <i class="nav-icon fa fa-users"></i>
                     <p>
                         Tài khoản
                         @*<span class="right badge badge-danger">New</span>*@
@@ -141,8 +150,17 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a href="https://business.facebook.com/latest/inbox/all?asset_id=173248575873787&nav_ref=manage_page_left_nav_inbox_button" class="nav-link">
+                    <i class="nav-icon fa fa-envelope"></i>
+                    <p>
+                        Tin nhắn
+                        @*<span class="right badge badge-danger">New</span>*@
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a href="javascript:document.getElementById('logOffForm').submit()" class="nav-link">
-                    <i class="nav-icon fas fa-th"></i>
+                    <i class="nav-icon fa fa-sign-out"></i>
                     <p>
                         Đăng xuất
                         @*<span class="right badge badge-danger">New</span>*@
@@ -161,4 +179,5 @@
         @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { @id = "logOffForm" }))
         {
             @Html.AntiForgeryToken()}
-    </div>}
+    </div>
+}

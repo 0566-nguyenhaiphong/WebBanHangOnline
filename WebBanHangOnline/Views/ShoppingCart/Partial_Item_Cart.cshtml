@@ -1,5 +1,15 @@
 ﻿@model IEnumerable<WebBanHangOnline.Models.ShoppingCartItem>
 
+<style>
+    .action-column {
+        width: 120px; /* Adjust the width as needed */
+    }
+
+    .btn-group-sm .btn {
+        padding: 5px 10px; /* Adjust the padding as needed */
+    }
+</style>
+
 <table class="table">
     <tr class="text-center">
         <th>STT</th>
@@ -27,10 +37,15 @@
                 <td>@WebBanHangOnline.Models.Common.FormatNumber.FormatNumber1(Convert.ToInt32(item.Price)) đ</td>
                 <td><input type="number" id="Quantity_@item.ProductId" class="form-control" value="@item.Quantity" onchange="checkQuantity(this)" /></td>
                 <td>@WebBanHangOnline.Models.Common.FormatNumber.FormatNumber1(Convert.ToInt32(item.PriceTotal)) đ</td>
-                <td style="display: flex; justify-content: space-around">
-                    <a href="#" data-id="@item.ProductId" class="btn btn-sm btn btn-danger btnDelete">Xóa</a>
-                    <a href="#" data-id="@item.ProductId" class="btn btn-sm btn btn-success btnUpdate">Cập nhật</a>
+                <!-- ... Existing code ... -->
+                <td class="text-center action-column">
+                    <div class="btn-group btn-group-sm">
+                        <a href="#" data-id="@item.ProductId" class="btn btn-danger btnDelete">Xóa</a>
+                        <a href="#" data-id="@item.ProductId" class="btn btn-success btnUpdate">Cập nhật</a>
+                    </div>
                 </td>
+                <!-- ... Existing code ... -->
+
             </tr>
         }
         <tr style="font-size: 15px">

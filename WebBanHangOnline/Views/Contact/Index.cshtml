@@ -172,7 +172,11 @@
             <p>Tên : Nguyễn Hải Phong</p>
             <p>SDT: 0123.456.789</p>
             <p>Email: phongp1192002@gmail.com</p>
+
+           
+
         </div>
+
         <div class="col">
             <div id="google_map">
                 <div class="map_container">
@@ -182,8 +186,8 @@
         </div>
     </div>
 
-    <!-- Contact Us -->
 
+    <!-- Contact Us -->
     <!--<div class="row">
 
         <div class="col-lg-6 contact_col">
@@ -202,10 +206,8 @@
                     <p>Sunday: Closed</p>
                 </div>
             </div>-->
-
-            <!-- Follow Us -->
-
-            <!--<div class="follow_us_contents">
+    <!-- Follow Us -->
+    <!--<div class="follow_us_contents">
                 <h1>Follow Us</h1>
                 <ul class="social d-flex flex-row">
                     <li><a href="#" style="background-color: #3a61c9"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
@@ -239,4 +241,64 @@
 </div>
 @section scripts{
     <script src="~/Content/assets/js/contact_custom.js"></script>
+   
+        <script>
+        $(function () {
+            var chat = $.connection.chatHub;
+            var messagesContainer = $('#chatMessages');
+            $.connection.hub.start().done(function () {
+                // Nếu người dùng đã đăng nhập, thực hiện kết nối và gửi tin nhắn
+                if (@User.Identity.IsAuthenticated.ToString().ToLower())
+                {
+                    var senderName = '@User.Identity.Name';
+                    $('#sendButton').click(function () {
+                        var message = $('#messageInput').val();
+                        chat.server.send(senderName, message);
+                        $('#messageInput').val('').focus();
+                    });
+                }
+            });
+
+            chat.client.broadcastMessage = function (senderName, message) {
+                var isMe = senderName === '@User.Identity.Name';
+
+                var alignmentClass;
+
+                if (isMe) {
+                    alignmentClass = 'left';
+                } else {
+                    // Nếu là tin nhắn từ người khác
+                    alignmentClass = 'right';
+                }
+
+
+
+                var formattedMessage = '<div class="direct-chat-msg ' + alignmentClass + '">' +
+                    '<div class="direct-chat-infos clearfix">' +
+                    '<span class="direct-chat-name float-' + (alignmentClass === 'left' ? 'left' : 'right') + '">' + senderName + '</span>' +
+                    '<span class="direct-chat-timestamp float-' + (alignmentClass === 'left' ? 'right' : 'left') + '">' + getCurrentTime() + '</span>' +
+                    '</div>' +
+                    '<img class="direct-chat-img" src="@Url.Content("~/dist/img/user1-128x128.jpg")" alt="Message User Image">' +
+                    '<div class="direct-chat-text">' + message + '</div>' +
+                    '</div>';
+
+                messagesContainer.append(formattedMessage);
+
+            };
+
+            function getCurrentTime() {
+                var date = new Date();
+                var hours = date.getHours();
+                var minutes = date.getMinutes();
+                var ampm = hours >= 12 ? 'pm' : 'am';
+                hours = hours % 12;
+                hours = hours ? hours : 12;
+                minutes = minutes < 10 ? '0' + minutes : minutes;
+                var strTime = hours + ':' + minutes + ' ' + ampm;
+                return strTime;
+            }
+        });
+        </script>
+    
+
 }

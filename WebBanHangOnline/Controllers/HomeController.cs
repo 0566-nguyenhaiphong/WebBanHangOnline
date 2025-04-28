@@ -7,6 +7,8 @@ using WebBanHangOnline.Models.EF;
 using WebBanHangOnline.Models;
 namespace WebBanHangOnline.Controllers
 {
+   
+
     public class HomeController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

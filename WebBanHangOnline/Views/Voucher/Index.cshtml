@@ -1,0 +1,225 @@
+﻿@model PagedList.PagedList<WebBanHangOnline.Models.EF.Voucher>
+@using PagedList.Mvc;
+@using PagedList;
+@{
+    ViewBag.Title = "Khuyến mãi";
+}
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/main_styles.css">
+
+<style>
+    .news_section_container {
+        margin-top: 50px;
+    }
+
+    .row-item-new {
+        margin-bottom: 30px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s;
+    }
+
+        .row-item-new:hover {
+            transform: scale(1.02);
+        }
+
+    .title-news {
+        font-size: 28px;
+        border-bottom: 2px solid #333;
+        padding: 20px 0;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+
+    .img-box {
+        max-width: 100%;
+        height: 200px;
+        overflow: hidden;
+        background-color: #f0f0f0;
+    }
+
+        .img-box img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+
+    .content-box {
+        padding: 20px;
+    }
+
+    h3 {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    .description-box {
+        color: #555;
+    }
+
+    .pagination {
+        margin: 20px 0;
+        display: flex;
+        justify-content: center;
+    }
+
+        .pagination li {
+            margin: 0 5px;
+        }
+
+        .pagination a {
+            display: block;
+            padding: 8px 12px;
+            background-color: #f0f0f0;
+            border-radius: 4px;
+            color: #333;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+            .pagination a:hover {
+                background-color: #ddd;
+            }
+
+    .active a {
+        background-color: #333;
+        color: #fff;
+    }
+
+    .btn-save,
+    .btn-use-now {
+        background-color: #ee4d2d;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        height: 40px;
+        border-radius: 3px;
+        font-size: 14px;
+        padding: 0.5rem 1rem;
+        outline: 0 !important;
+    }
+
+    .btn-use-now {
+        top: 60px;
+    }
+
+    .btn-icon {
+        margin-right: 5px;
+    }
+
+    .row-item-new {
+        position: relative;
+    }
+
+    .content-box {
+        padding: 20px 20px 20px 0;
+    }
+</style>
+
+<div class="container news_section_container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="title-news">Khuyến mãi</h1>
+        </div>
+    </div>
+    @if (Model != null && Model.Any())
+    {
+        foreach (var item in Model)
+        {
+            <!-- Trong foreach -->
+<div class="row row-item-new" id="trow_@item.Id">
+    <div class="col-md-3">
+        <div class="img-box">
+            <img src="~/Content/assets/dist/img/ADPshop.jpg" alt="@item.Title" />
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div class="content-box">
+            <h3><a href="" title="@item.Title">@item.Title</a></h3>
+            <div class="description-box">
+                @item.Description
+            </div>
+            <div>
+                Code: @item.VoucherCode
+            </div>
+        </div>
+    </div>
+    @if (item.isSave)
+    {
+        <button class="btn btn-success btn-save" disabled><i class="fa fa-check btn-icon" aria-hidden="true"></i>Đã lưu</button>
+    }
+    else
+    {
+        <button class="btn btn-primary btn-save" data-id="@item.Id"><i class="fa fa-clone btn-icon" aria-hidden="true"></i>Lưu</button>
+
+    }
+    <a href="/ShoppingCart/Index" class="btn btn-success btn-use-now" data-id="@item.Id"><i class="fa fa-shopping-cart btn-icon" aria-hidden="true"></i>Dùng ngay</a>
+
+</div>
+
+        }
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <ul class="pagination">
+                    @if (Model.HasPreviousPage)
+                    {
+                        <li class="page-item">
+                            <a class="page-link" href="@Url.Action("Index", new { page = 1 })">Đầu</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber - 1 })">Trước</a>
+                        </li>
+                    }
+
+                    @for (int i = 1; i <= Model.PageCount; i++)
+                    {
+                        <li class="page-item @(i == Model.PageNumber ? "active" : "")">
+                            <a class="page-link" href="@Url.Action("Index", new { page = i })">@i</a>
+                        </li>
+                    }
+
+                    @if (Model.HasNextPage)
+                    {
+                        <li class="page-item">
+                            <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber + 1 })">Tiếp</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="@Url.Action("Index", new { page = Model.PageCount })">Cuối</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    }
+</div>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('body').on('click', '.btn-save', function () {
+                var id = $(this).data("id");
+                var btn = $(this);
+
+                $.ajax({
+                    url: '/voucher/save',
+                    type: 'POST',
+                    data: { id: id },
+                    success: function (rs) {
+                        if (!rs.Success) {
+                            alert(rs.Message);
+                        } else {
+                            // Chuyển màu và hiển thị thông báo đã lưu
+                            btn.removeClass('btn-primary').addClass('btn-success').html('<i class="fa fa-check btn-icon" aria-hidden="true"></i>Đã lưu');
+                            btn.prop('disabled', true); // Disable nút sau khi đã lưu
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+}

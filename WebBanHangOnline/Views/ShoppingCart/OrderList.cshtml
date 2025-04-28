@@ -7,6 +7,9 @@
 <link rel="stylesheet" type="text/css" href="~/Content/assets/styles/contact_styles.css">
 
 <style>
+    .table td {
+        white-space: nowrap;
+    }
     .news_section_container {
         margin-top: 180px;
     }
@@ -88,11 +91,17 @@
                     <td>
                         @{ if (@item.TypePayment == 1)
                             {
-                                <div style="color:red">Thanh toán khi nhận hàng</div>
+                                <div style="color: brown">Thanh toán khi nhận hàng</div>
                             }
                             else if (@item.TypePayment == 2)
                             {
-                                <div style="color:brown">Thanh toán chuyển khoản</div> }
+                                <div style="color: brown">Thanh toán VNPay</div>
+                            }
+                            else if (item.TypePayment == 3)
+                            {
+                                <div style="color: brown">Thanh toán Momo</div>
+
+                            }
                         }
                     </td>
 
@@ -101,18 +110,18 @@
                     </td>
 
                     <td>
-                        @{ if (@item.Status == 1)
+                        @{ if (@item.isConfirm == false)
                             {
                                 <div style="color:red">Chờ xác nhận</div>
                             }
-                            else if (@item.Status == 2)
+                            else if (@item.isConfirm == true)
                             {
                                 <div style="color:brown">Đã xác nhận</div> }
                         }
                     </td>
 
                     <td>
-                        <a href="/chi-tiet-don-hang-p@(item.Id)" class="btn btn-sm btn btn-success">Chi tiết</a>
+                        <a href="/chi-tiet-don-hang-o@(item.Id)" class="btn btn-sm btn btn-success active">Chi tiết</a>
                         
                     </td>
                 </tr>

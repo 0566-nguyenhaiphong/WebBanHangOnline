@@ -148,19 +148,25 @@
 
 
         })
-
         function load_data(data) {
             var strHtml = "";
             $.each(data, function (i, item) {
                 var strDate = moment(item.Date).format('DD/MM/yyyy');
                 strHtml += "<tr>";
-                strHtml += "<td>"+(i+1)+"</td>";
-                strHtml += "<td>" + strDate+"</td>";
-                strHtml += "<td>"+item.DoanhThu+"</td>";
-                strHtml += "<td>"+item.LoiNhuan+"</td>";
+                strHtml += "<td>" + (i + 1) + "</td>";
+                strHtml += "<td>" + strDate + "</td>";
+                strHtml += "<td>" + formatCurrency(item.DoanhThu) + "</td>";
+                strHtml += "<td>" + formatCurrency(item.LoiNhuan) + "</td>";
                 strHtml += "</tr>";
             });
             $('#load_data').html(strHtml);
         }
+
+        function formatCurrency(amount) {
+            // Format số theo kiểu tiền Việt Nam (VND)
+            return amount.toFixed(0).replace(/\d(?=(\d{3})+$)/g, '$&,') + "đ";
+        }
+
+
     </script>
 }

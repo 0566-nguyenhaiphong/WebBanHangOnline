@@ -45,6 +45,7 @@ namespace WebBanHangOnline.Models
         [Display(Name = "Email")]
         public string Email { get; set; }
     }
+   
 
     public class LoginViewModel
     {

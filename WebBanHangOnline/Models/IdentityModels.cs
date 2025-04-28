@@ -30,6 +30,10 @@ namespace WebBanHangOnline.Models
         {
 
         }
+        public DbSet<Voucher> Vouchers { get; set; }
+
+        public DbSet<Wishlist> Wishlists { get; set; }
+
         public DbSet<ReviewProduct> Review{ get; set; }
 
         public DbSet<ThongKe> ThongKes{ get; set; }

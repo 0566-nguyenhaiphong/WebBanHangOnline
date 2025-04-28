@@ -5,14 +5,13 @@
 <link rel="stylesheet" type="text/css" href="~/Content/assets/styles/main_styles.css">
 <!-- Slider -->
 
-<div class="main_slider" style="background-image:url('../../content/assets/images/slider_1.jpg'); ">
+<div class="main_slider" style="background-image:url('../../content/assets/images/anhqc.png'); ">
     <div class="container fill_height">
         <div class="row align-items-center fill_height">
             <div class="col">
                 <div class="main_slider_content">
-                    <h6>Spring / Summer Collection 2017</h6>
-                    <h1>Get up to 30% Off New Arrivals</h1>
-                    <div class="red_button shop_now_button"><a href="#">shop now</a></div>
+
+                    @*<div class="red_button shop_now_button"><a href="#">shop now</a></div>*@
                 </div>
             </div>
         </div>
@@ -118,6 +117,37 @@
     </div>
 </div>
 
+
 <!-- Blogs -->
 
 @Html.Action("Partial_News_Home", "News")
+<!-- Messenger Plugin chat Code -->
+<div id="fb-root"></div>
+
+<!-- Your Plugin chat code -->
+<div id="fb-customer-chat" class="fb-customerchat">
+</div>
+
+@*<script>
+      var chatbox = document.getElementById('fb-customer-chat');
+      chatbox.setAttribute("page_id", "173248575873787");
+      chatbox.setAttribute("attribution", "biz_inbox");
+</script>
+
+ Your SDK code 
+<script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          xfbml            : true,
+          version          : 'v18.0'
+        });
+      };
+
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+</script>*@

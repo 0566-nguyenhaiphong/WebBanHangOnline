@@ -249,21 +249,47 @@ jQuery(document).ready(function($)
     			}
 
     			fav.on('click', function()
-    			{
+				{
+					var id = $(this).data("id")
+
     				if(active)
     				{
     					fav.removeClass('active');
-    					active = false;
+						active = false;
+						DeleteWishList(id)
     				}
     				else
     				{
     					fav.addClass('active');
-    					active = true;
+						active = true;
+						AddWishList(id)
     				}
     			});
     		});
     	}
-    }
+	}
+	function AddWishList(id) {
+		$.ajax({
+			url: '/WishList/PostWishList',
+			type: 'POST',
+			data: { ProductId: id },
+			Success: function (res) {
+				if (res.Success == false) {
+					alert(res.Message)
+				}
+			}
+		})
+	}
+	function DeleteWishList(id) {
+		$.ajax({
+			url: '/WishList/PostDeleteWishList',
+			type: 'POST',
+			data: { ProductId: id },
+			success: function (res) {
+				
+			}
+		})
+	}
 
     /* 
 

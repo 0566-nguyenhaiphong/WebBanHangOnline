@@ -53,6 +53,7 @@
                 <!-- your steps content here -->
                 @using (Html.BeginForm("Add", "News", FormMethod.Post, new { }))
                 {
+                   
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true)
                 <div id="logins-part" class="content active dstepper-block" role="tabpanel" aria-labelledby="logins-part-trigger">
